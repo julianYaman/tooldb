@@ -94,12 +94,12 @@ export default function Header() {
           </a>
           <a
             data-v-54e46119=""
-            href="https://github.com/julianyaman"
+            href="https://github.com/julianyaman/tooldb"
             rel="noopener noreferrer"
             target="_blank"
             className="invisible md:visible"
           >
-            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/julianyaman/btoold?style=social" />
+            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/julianyaman/tooldb?style=social" />
           </a>
         </div>
       </div>
