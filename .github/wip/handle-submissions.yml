@@ -1,0 +1,10 @@
+name: CI
+
+on:
+  issues:
+    types: [ labeled ]
+
+jobs:
+  build:
+    if: ${{ github.event.label.name == 'submission accepted' }}
+    runs-on: ubuntu-latest

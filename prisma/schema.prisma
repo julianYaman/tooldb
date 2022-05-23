@@ -1,0 +1,62 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id                   Int            @id @default(autoincrement())
+  created_at           DateTime?         @default(now()) @db.Timestamptz(6)
+  category_name        String?
+  category_description String?
+  category_icon        String?
+  tool_categories      tool_categories[]
+}
+
+model comments {
+  id         Int    @id @default(autoincrement())
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  type       String?   @default("comment")
+  reply_to   Int?      @db.SmallInt
+  content    String?
+  user       Int?      @db.SmallInt
+  tool_id    Int?      @db.SmallInt
+}
+
+model tool_categories {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime?   @default(now()) @db.Timestamptz(6)
+  tool_id     Int?
+  category_id Int?
+  categories  categories? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tools       tools?      @relation(fields: [tool_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tool_images {
+  id         Int    @id @default(autoincrement())
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  tool_id    Int?
+  image_link String?
+  tools      tools?    @relation(fields: [tool_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tools {
+  id                        Int            @id @default(autoincrement())
+  created_at                DateTime?         @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime?         @default(now()) @db.Timestamptz(6)
+  tool_name                 String?
+  tool_link                 String?
+  tool_description          String?
+  github_repo               String?
+  twitter_link              String?
+  upvotes                   Int?              @db.SmallInt
+  logo                      String?           @default("NULL")
+  submitted_by              String?
+  tool_detailed_description String?
+  tool_categories           tool_categories[]
+  tool_images               tool_images[]
+}
