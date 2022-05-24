@@ -9,7 +9,8 @@ const nextConfig = {
       "http.cat", 
       "dummyimage.com",
       "avatars.githubusercontent.com",
-      "raw.githubusercontent.com"
+      "raw.githubusercontent.com",
+      "camo.githubusercontent.com",
     ]
   }
 }
