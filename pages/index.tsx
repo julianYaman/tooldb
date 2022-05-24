@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 import Footer from "../components/Footer";
 import { NextSeo } from "next-seo";
-import { prisma } from './../db'
 import Script from "next/script";
 import axios from "axios";
 import useSWR from "swr";
@@ -50,6 +49,21 @@ export default function Home(props: any) {
       />
     </div>
   );
+
+  if (standardError || recentlyAddedError || categoriesError){
+    return (
+      <div className="mx-auto max-w-5xl text-white">
+        <Progress
+          progress={100}
+          size="md"
+          color="red"
+          label="An error occurred while loading tooldb"
+          labelPosition="outside"
+          labelProgress={true}
+        />
+      </div>
+    );
+  }
 
   const tablePreviewData = {firstTools: standardData, recentlyAddedData}
 
