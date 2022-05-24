@@ -1,7 +1,5 @@
-import { PrismaClient, tools } from "@prisma/client";
+import { prisma } from './../../../db'
 
-const prisma = new PrismaClient()
-	
 export default async function handler(req: any, res: any) {
 
     let { query } = req.query

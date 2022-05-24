@@ -8,7 +8,7 @@ import { FaStar, FaTable } from 'react-icons/fa';
 export default function ToolSearchTable(props: any) {
 
     const cachedPreviewData   = props.tablePreviewData.firstTools;
-    const cachedRecentlyAdded = props.tablePreviewData.recentlyAdded;
+    const cachedRecentlyAdded = props.tablePreviewData.recentlyAddedData;
 
     const [tablePreviewData, setTablePreviewData] = useState(cachedPreviewData)
     const [standardTableViewVisible, setStandardTableViewVisible] = useState(true)

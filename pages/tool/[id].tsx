@@ -4,14 +4,12 @@ import ToolMain from "../../components/ToolMain";
 import Footer from "../../components/Footer";
 import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
-import { PrismaClient } from "@prisma/client";
+import { prisma } from './../../db'
 import { serialize } from 'next-mdx-remote/serialize'
 import Image from "next/image";
 import { Suspense } from "react";
 import { Spinner } from "flowbite-react";
 import Script from "next/script";
-
-const prisma = new PrismaClient();
 
 export default function ToolPage(props: any) {
 

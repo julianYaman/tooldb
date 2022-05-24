@@ -4,10 +4,8 @@ import CategoryMain from "../../components/CategoryMain";
 import Footer from "../../components/Footer";
 import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
-import { PrismaClient } from "@prisma/client";
+import { prisma } from './../../db'
 import Script from "next/script";
-
-const prisma = new PrismaClient();
 
 export default function ToolPage(props: any) {
 
