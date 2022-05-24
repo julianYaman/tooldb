@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { prisma } from './../../db'
 import { serialize } from 'next-mdx-remote/serialize'
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
 import Script from "next/script";
 
@@ -15,6 +15,12 @@ export default function ToolPage(props: any) {
 
     const router = useRouter()
     const { id } = router.query
+
+    const [isSSR, setIsSSR] = useState(true);
+
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
 
     return (
         <div className="text-black">
@@ -45,9 +51,9 @@ export default function ToolPage(props: any) {
         <Header />
         {
             props.toolData ?
-            <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool" size='xl' /></div>}>
+            ( !isSSR && <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool" size='xl' /></div>}>
                 <ToolMain toolData={props.toolData} toolDetailedDescription={props.toolDetailedDescription}/> 
-            </Suspense>:
+            </Suspense>):
             (
             <section className="text-white-900 body-font">
                 <div className="container flex w-full max-w-5xl mx-auto pt-48 pb-6 p-5">

@@ -28,13 +28,15 @@ export default function Main(props: any) {
               props.categories.map((category: any, index: number) => {
                 return (
                   <div className='flex-1 h-48' key={index}>
-                    <a href={`/category/${category.id}`}>
-                      <Card className="cursor-pointer hover:bg-gray-200" key={index}>
-                        <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                          {category.category_icon} {category.category_name}
-                        </h5>
-                      </Card>
-                    </a>
+                    <Link href={`/category/${category.id}`}>
+                      <a>
+                        <Card className="cursor-pointer hover:bg-gray-200" key={index}>
+                          <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                            {category.category_icon} {category.category_name}
+                          </h5>
+                        </Card>
+                      </a>
+                    </Link>
                   </div>
                 )
               })

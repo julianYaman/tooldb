@@ -1,4 +1,4 @@
-import { Avatar, Badge, Button, Carousel, TextInput } from "flowbite-react";
+import { Avatar, Badge, Button, Carousel, Spinner } from "flowbite-react";
 import Link from "next/link";
 import { MDXRemote } from 'next-mdx-remote'
 import { Suspense } from "react";
@@ -42,15 +42,17 @@ export default function ToolMain(props: any) {
               </div>
             </div>
             <div id="tool_images" className="my-1 py-3">
-              <Suspense fallback={`loading`}>
+              <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool Table" size='xl' /></div>}>
                 <Carousel slideInterval={5000} slide={true}>
                   {
                     props.toolData.tool_images.length > 0 ? (
                       props.toolData.tool_images.map((image: any, index: number) => {
                         return (
                           <img
-                            className="rounded-lg"
+                            className="rounded-lg relative"
                             src={image.image_link}
+                            width={"100%"}
+                            height={"100%"}
                             alt={props.toolData.tool_name}
                             key={index}
                           />
@@ -59,6 +61,8 @@ export default function ToolMain(props: any) {
                     ) : (
                       <img 
                         className="w-full rounded-lg"
+                        width={"100%"}
+                        height={"100%"}
                         src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Currently+there+are+no+images.+Please+submit+some+via+an+issue+on+GitHub."
                         alt="No image for this tool."
                       />
@@ -66,6 +70,8 @@ export default function ToolMain(props: any) {
                   }
                   <img 
                     className="w-full rounded-lg"
+                    width={"100%"}
+                    height={"100%"}
                     src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Submit+new+images+with+an+issue+on+GitHub."
                     alt="No image for this tool."
                     key={9999}

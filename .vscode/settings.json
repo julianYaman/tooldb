@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "repo",
         "header",
-        "api"
+        "api",
+        "toolPage"
     ]
 }
