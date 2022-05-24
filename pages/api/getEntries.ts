@@ -2,13 +2,38 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from './../../db'
 
-type Data = {
-  name: string
+type StandardViewResponse = {
+  tool_categories: {
+      categories: {
+          id: number;
+          category_name: string | null;
+          category_icon: string | null;
+      } | null;
+  }[];
+  id: number;
+  tool_name: string | null;
+  submitted_by: string | null;
+  tool_link: string | null;
+  logo: string | null;
+  github_repo: string | null;
+  twitter_link: string | null;
+}[]
+
+type CategoriesResponse = {
+  id: number;
+  category_name: string | null;
+  category_icon: string | null;
+  category_description: string | null;
+}[]
+
+type DefaultResponse = {
+  message: string;
 }
+
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<StandardViewResponse|CategoriesResponse|DefaultResponse>
 ) {
   const params = req.query
 
