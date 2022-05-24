@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { Suspense } from "react";
 import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
+import Image from "next/image";
 
 export default function ToolMain(props: any) {
 
@@ -17,7 +18,7 @@ export default function ToolMain(props: any) {
           <div className="basis-2/3 divide-y divide-white-200 pr-5">
             <div id="toolData" className="flex gap-2">
               <div className="flex-none">
-                <img src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"}></img>
+                <Image src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
               </div>
               <div className="flex-1">
                 <h1 className="text-5xl text-left font-4 lh-6 ld-04 font-bold text-white mb-5">
@@ -48,34 +49,39 @@ export default function ToolMain(props: any) {
                     props.toolData.tool_images.length > 0 ? (
                       props.toolData.tool_images.map((image: any, index: number) => {
                         return (
-                          <img
-                            className="rounded-lg relative"
-                            src={image.image_link}
-                            width={"100%"}
-                            height={"100%"}
-                            alt={props.toolData.tool_name}
-                            key={index}
-                          />
+                          <div key={index} className="flex w-full h-full">
+                            <Image
+                              className="rounded-lg w-full"
+                              src={image.image_link}
+                              layout="fill"
+                              objectFit="contain"
+                              alt={props.toolData.tool_name}
+                            />
+                          </div>
                         )
                       })
                     ) : (
-                      <img 
-                        className="w-full rounded-lg"
-                        width={"100%"}
-                        height={"100%"}
-                        src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Currently+there+are+no+images.+Please+submit+some+via+an+issue+on+GitHub."
-                        alt="No image for this tool."
-                      />
+                      <div className="flex h-full w-full">
+                        <Image 
+                          className="rounded-lg"
+                          layout="fill"
+                          objectFit="contain"
+                          src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Currently+there+are+no+images.+Please+submit+some+via+an+issue+on+GitHub."
+                          alt="No image for this tool."
+                        />
+                      </div>
                     )
                   }
-                  <img 
-                    className="w-full rounded-lg"
-                    width={"100%"}
-                    height={"100%"}
-                    src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Submit+new+images+with+an+issue+on+GitHub."
-                    alt="No image for this tool."
-                    key={9999}
-                  />
+                  <div className="flex h-full w-full">
+                    <Image 
+                      className="rounded-lg"
+                      layout="fill"
+                      objectFit="contain"
+                      src="https://dummyimage.com/16:9x720/f0f0f0/000000.png&text=Submit+new+images+with+an+issue+on+GitHub."
+                      alt="No image for this tool."
+                      key={9999}
+                    />
+                  </div>
                 </Carousel>
               </Suspense>
             </div>

@@ -6,8 +6,6 @@ import { SiDiscord, SiMastodon, SiTwitter } from "react-icons/si";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [flyer, setFlyer] = React.useState(false);
-  const [flyerTwo, setFlyerTwo] = React.useState(false);
 
   return (
     <header className="fixed top-0 w-full clearNav z-50">
@@ -19,7 +17,9 @@ export default function Header() {
           ><a><Image 
             src={Logo}
             width="160px"
+            height="100%"
             className="cursor-pointer"
+            alt="Logo of tooldb"
           /></a>
           </Link>
           <button

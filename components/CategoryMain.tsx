@@ -1,6 +1,6 @@
-import { Badge, Button, Carousel, TextInput } from "flowbite-react";
+import { Button } from "flowbite-react";
 import Link from "next/link";
-import { Suspense } from "react";
+import Image from "next/image";
 import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 
@@ -30,7 +30,7 @@ export default function CategoryMain(props: any) {
                     <>
                     <div className="flex bg-white/10 mb-3 p-3 items-center" key={tool.id}>
                       <div className="flex-none">
-                        <img src={tool.tools.logo} width={"120px"} height={"120px"} className="rounded-lg"></img>
+                        <Image src={tool.tools.logo} width={"120px"} height={"120px"} className="rounded-lg" alt={`Logo of ${tool.tools.tool_name}`} />
                       </div>
                       <div className="flex-auto">
                           <div className="p-3 text-white">
