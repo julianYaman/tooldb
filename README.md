@@ -19,7 +19,8 @@ Only one person couldn‘t handle the huge collection of tools and keep track of
 
 ## ✨ Submit tools
 
-To grow the collection of tools, we need *you*! If you have a favourite tool or framework or you found one recently, please submit it on GitHub by creating an issue. The templates will guide you.
+To grow the collection of tools, we need *you*! If you have a favourite tool or framework or you found one recently, we would love to have it in our collection.
+You can submit it [here with AppSmith](https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334).
 
 ## ♻️ Update tool information and images
 

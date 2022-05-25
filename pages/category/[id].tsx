@@ -6,6 +6,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
 import { prisma } from './../../db'
 import Script from "next/script";
+import Link from "next/link";
 
 export default function ToolPage(props: any) {
 
@@ -47,7 +48,7 @@ export default function ToolPage(props: any) {
                 <div id="categoryData">
                     <h1 className="text-5xl text-left font-4 lh-6 ld-04 font-bold text-white mb-5">
                         Sorry, no results found.<br />
-                        You can add tools to this category by submitting an issue on GitHub.
+                        You can add tools to this category by submitting them <Link href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"><a>here</a></Link>.
                     </h1>
                 </div>
                 </div>
