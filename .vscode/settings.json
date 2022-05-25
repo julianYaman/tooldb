@@ -3,6 +3,7 @@
         "repo",
         "header",
         "api",
-        "toolPage"
+        "toolPage",
+        "mainPage"
     ]
 }

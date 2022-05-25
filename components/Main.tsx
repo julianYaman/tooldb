@@ -27,7 +27,7 @@ export default function Main(props: any) {
             {
               props.categories.map((category: any, index: number) => {
                 return (
-                  <div className='flex-1 h-48' key={index}>
+                  <div className='flex-auto' key={index}>
                     <Link href={`/category/${category.id}`}>
                       <a>
                         <Card className="cursor-pointer hover:bg-gray-200" key={index}>
