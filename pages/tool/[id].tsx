@@ -50,7 +50,7 @@ export default function ToolPage(props: any) {
         
         <Header />
         {
-            props.toolData ?
+            props.toolData && props?.toolData.isVerified ?
             ( !isSSR && <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool" size='xl' /></div>}>
                 <ToolMain toolData={props.toolData} toolDetailedDescription={props.toolDetailedDescription}/> 
             </Suspense>):
@@ -81,6 +81,7 @@ export async function getServerSideProps(context: any) {
           github_repo: true,
           twitter_link: true,
           created_at: true,
+          isVerified: true,
           logo: true,
           tool_detailed_description: true,
           tool_categories: {
@@ -101,7 +102,7 @@ export async function getServerSideProps(context: any) {
           }
         },
         where: {
-            id: parseInt(id)
+            id: parseInt(id),
         }
       });
 

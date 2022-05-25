@@ -60,6 +60,9 @@ export default async function handler(
         },
       },
       take: 10,
+      where: {
+        isVerified: true
+      }
     });
 
     return res.status(200).json(tools)
@@ -103,6 +106,9 @@ export default async function handler(
       take: 10,
       orderBy: {
         created_at: "desc"
+      },
+      where: {
+        isVerified: true
       }
     });
 

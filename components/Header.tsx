@@ -64,7 +64,7 @@ export default function Header() {
                 Donate
               </a>
             </Link>
-            <a href="https://github.com/julianyaman/tooldb/issues" className="mr-5 cursor-pointer text-yellow-300 hover:text-white font-semibold tr04 ">
+            <a href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334" className="mr-5 cursor-pointer text-yellow-300 hover:text-white font-semibold tr04 ">
               Submit a tool
             </a>
           </div>

@@ -32,6 +32,7 @@ export default async function handler(req: any, res: any) {
                 contains: query,
                 mode: "insensitive"
             },
+            isVerified: true
         },
     })
 
