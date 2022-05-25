@@ -149,7 +149,7 @@ export default function EmbeddedSearchbar(props: any) {
                                 <Table.Row>
                                     <Table.Cell>
                                         Sorry. We couldn&apos;t find your tool. 
-                                        <br />Try with a few more letters, check for typos or submit your tool on GitHub with <Link href={"https://github.com/julianYaman/tooldb/issues"}><a className='text-blue-600 font-bold hover:text-cyan-600'>an issue</a></Link>.
+                                        <br />Try with a few more letters, check for typos or submit your tool on GitHub with <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>an issue</a></Link>.
                                     </Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
@@ -158,7 +158,7 @@ export default function EmbeddedSearchbar(props: any) {
                             )}
                             <Table.Row>
                                 <Table.Cell>
-                                    Submit your tool on GitHub<br />with <Link href={"https://github.com/julianYaman/tooldb/issues"}><a className='text-blue-600 font-bold hover:text-cyan-600'>an issue</a></Link>.
+                                    Submit your tool <br />with <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here on AppSmith</a></Link>.
                                 </Table.Cell>
                                 <Table.Cell></Table.Cell>
                                 <Table.Cell></Table.Cell>
