@@ -4,6 +4,7 @@
         "header",
         "api",
         "toolPage",
-        "mainPage"
+        "mainPage",
+        "categoryPage"
     ]
 }

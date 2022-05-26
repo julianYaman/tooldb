@@ -6,6 +6,8 @@ import EmbeddedSearchbar from "./EmbeddedSearchbar";
 
 export default function CategoryMain(props: any) {
 
+    console.log(props)
+
     // Show the tool page depending on the id of the tool
     return (
       <section className="text-white-900 body-font">
@@ -28,14 +30,14 @@ export default function CategoryMain(props: any) {
                 props.categoryResults.map((tool: any) => {
                   return (
                     <>
-                    <div className="flex bg-white/10 mb-3 p-3 items-center" key={tool.id}>
+                    <div className="flex bg-white/10 mb-3 p-3 items-center" key={tool.tool_id}>
                       <div className="flex-none">
                         <Image src={tool.tools.logo} width={"120px"} height={"120px"} className="rounded-lg" alt={`Logo of ${tool.tools.tool_name}`} />
                       </div>
                       <div className="flex-auto">
                           <div className="p-3 text-white">
                             <h1 className="text-2xl text-left font-4 lh-6 ld-04 font-bold mb-3">
-                              <Link href={`/tool/${tool.id}`}><a className="underline">{tool.tools.tool_name}</a></Link>
+                              <Link href={`/tool/${tool.tool_id}`}><a className="underline">{tool.tools.tool_name}</a></Link>
                             </h1>
                             <h2 className="text-lg font-4 lh-6 ld-04 pb-3 text-justify">
                               {tool.tools.tool_description}
