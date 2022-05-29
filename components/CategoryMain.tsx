@@ -6,8 +6,6 @@ import EmbeddedSearchbar from "./EmbeddedSearchbar";
 
 export default function CategoryMain(props: any) {
 
-    console.log(props)
-
     // Show the tool page depending on the id of the tool
     return (
       <section className="text-white-900 body-font">
