@@ -4,7 +4,7 @@ import CategoryMain from "../../components/CategoryMain";
 import Footer from "../../components/Footer";
 import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
-import { prisma } from './../../db'
+import { server } from '../../config'
 import Script from "next/script";
 import Link from "next/link";
 
@@ -60,35 +60,29 @@ export default function ToolPage(props: any) {
     );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getStaticProps(context: any) {
 
-    const id = context.query.id
+    const id = context.params.id;
 
-    const categoryTools = await prisma.tool_categories.findMany({
-        where: {
-            category_id: parseInt(id)
-        },
-        include: {
-            tools: true,
-        },
-    });
-
-    const categoryData = await prisma.categories.findUnique({
-        where: {
-            id: parseInt(id)
-        },
-        select: {
-            id: true,
-            category_name: true,
-            category_icon: true,
-            category_description: true
-        }
-    });
+    const categoryToolsResults = await fetch(`${server}/api/category/${id}`).then(res => res.json());
 
     return {
-        props: {
-            categoryData, 
-            categoryResults: JSON.parse(JSON.stringify(categoryTools))
-        }
+        props: categoryToolsResults,
+        revalidate: 300
     }
+}
+
+export async function getStaticPaths() {
+    const res = await fetch(`${server}/api/category/ids`)
+    const categories = await res.json()
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch categories, received status ${res.status}`)
+    }
+
+    const paths = categories.map((category:any) => ({
+        params: { id: category.id.toString() },
+    }))
+
+    return { paths, fallback: 'blocking' }
 }

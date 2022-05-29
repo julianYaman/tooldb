@@ -4,23 +4,34 @@ import ToolMain from "../../components/ToolMain";
 import Footer from "../../components/Footer";
 import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
-import { prisma } from './../../db'
 import { serialize } from 'next-mdx-remote/serialize'
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
 import Script from "next/script";
+import { server } from '../../config'
+
 
 export default function ToolPage(props: any) {
 
     const router = useRouter()
-    const { id } = router.query
+    const { id, isFallback } = router.query
 
     const [isSSR, setIsSSR] = useState(true);
 
     useEffect(() => {
         setIsSSR(false);
     }, []);
+
+    if(isFallback){
+        return (
+            <div className="mx-auto max-w-5xl text-white bg-white p-5">
+                <div className="text-center">
+                    <Spinner size="lg" color="purple"/>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="text-black">
@@ -67,50 +78,42 @@ export default function ToolPage(props: any) {
     );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getStaticProps(context: any) {
 
-    const id = context.query.id
+    const id = context.params.id;
 
-    const tool = await prisma.tools.findUnique({
-        select: {
-          id: true,
-          tool_name: true,
-          tool_description: true,
-          submitted_by: true,
-          tool_link: true,
-          github_repo: true,
-          twitter_link: true,
-          created_at: true,
-          isVerified: true,
-          logo: true,
-          tool_detailed_description: true,
-          tool_categories: {
-            select: {
-              categories: {
-                select: {
-                  category_name: true,
-                  category_icon: true,
-                  id: true
-                }
-              }
-            }
-          },
-          tool_images: {
-              select: {
-                  image_link: true
-              }
-          }
-        },
-        where: {
-            id: parseInt(id),
-        }
-      });
+    const tool = await fetch(`${server}/api/tools/${id}`).then(res => res.json());
 
     const toolDetailedDescription = tool?.tool_detailed_description ? await serialize(tool.tool_detailed_description) : ""
+    
     return {
         props: {
             toolData: JSON.parse(JSON.stringify(tool)),
             toolDetailedDescription
-        }
+        },
+        revalidate: 600
     }
+}
+
+export async function getStaticPaths() {
+    const res = await fetch(`${server}/api/tools/ids`)
+    const tools = await res.json()
+
+    if (!res.ok) {
+        // If there is a server error, you might want to
+        // throw an error instead of returning so that the cache is not updated
+        // until the next successful request.
+        throw new Error(`Failed to fetch tools, received status ${res.status}`)
+    }
+    
+
+    // Get the paths we want to pre-render based on paths
+    const paths = tools.map((tool:any) => ({
+        params: { id: tool.id.toString() },
+    }))
+
+    // We'll pre-render only these paths at build time.
+    // { fallback: blocking } will server-render pages
+    // on-demand if the path doesn't exist.
+    return { paths, fallback: 'blocking' }
 }
