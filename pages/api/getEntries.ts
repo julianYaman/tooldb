@@ -75,6 +75,9 @@ export default async function handler(
         category_name: true,
         category_icon: true,
         category_description: true,
+      },
+      orderBy: {
+        category_name: "asc"
       }
     });
 
