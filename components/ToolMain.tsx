@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 import Image from "next/image";
+import ImageNotLoaded from "../assets/ImageNotLoaded.png";
 
 export default function ToolMain(props: any) {
 
@@ -49,19 +50,20 @@ export default function ToolMain(props: any) {
                     props.toolData.tool_images.length > 0 ? (
                       props.toolData.tool_images.map((image: any, index: number) => {
                         return (
-                          <div key={index} className="flex w-full h-full">
+                          <div key={index} className="flex w-full h-full bg-white/30">
                             <Image
                               className="rounded-lg w-full"
                               src={image.image_link}
                               layout="fill"
                               objectFit="contain"
+                              onError={(e: any) => { e.target.src = ImageNotLoaded }}
                               alt={props.toolData.tool_name}
                             />
                           </div>
                         )
                       })
                     ) : (
-                      <div className="flex h-full w-full">
+                      <div className="flex h-full w-full rounded-lg bg-white/30">
                         <Image 
                           className="rounded-lg"
                           layout="fill"
@@ -72,7 +74,7 @@ export default function ToolMain(props: any) {
                       </div>
                     )
                   }
-                  <div className="flex h-full w-full">
+                  <div className="flex h-full w-full rounded-lg bg-white/30">
                     <Image 
                       className="rounded-lg"
                       layout="fill"
