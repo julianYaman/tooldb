@@ -17,7 +17,7 @@ export default function Home(props: any) {
   const { data: categoriesData, error: categoriesError }: any = useSWR('/api/getEntries?get=categories', fetcher)
 
   if (!standardData ) return (
-    <div className="mx-auto max-w-5xl text-white">
+    <div className="mx-auto max-w-5xl p-5 text-white">
       <Progress
         progress={33}
         size="md"
@@ -28,7 +28,7 @@ export default function Home(props: any) {
     </div>
   );
   if (!recentlyAddedData ) return (
-    <div className="mx-auto max-w-5xl text-white">
+    <div className="mx-auto max-w-5xl p-5 text-white">
       <Progress
         progress={66}
         size="md"
@@ -39,7 +39,7 @@ export default function Home(props: any) {
     </div>
   );
   if (!categoriesData ) return (
-    <div className="mx-auto max-w-5xl text-white">
+    <div className="mx-auto max-w-5xl p-5 text-white">
       <Progress
         progress={100}
         size="md"

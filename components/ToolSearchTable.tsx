@@ -57,28 +57,30 @@ export default function ToolSearchTable(props: any) {
                     }
                 }
             />
-            <Button.Group outline={true} >
-                <Button size="xs" color="alternative" disabled={standardTableViewVisible} onClick={() => changeView("standard")}>
-                    <FaTable className="mr-3 h-4 w-4" />
-                    {' '}Standard
-                </Button>
-                <Button size="xs" color="alternative" disabled={recentlyAddedTableViewVisible} onClick={() => changeView("recentlyAdded")}>
-                    <FaStar className="mr-3 h-4 w-4" />
-                    {' '}Newest
-                </Button>
-            </Button.Group>
-            <Table striped={true}>
+            <div className='mx-auto'>
+                <Button.Group outline={true} >
+                    <Button size="xs" color="alternative" disabled={standardTableViewVisible} onClick={() => changeView("standard")}>
+                        <FaTable className="mr-3 h-4 w-4" />
+                        {' '}Standard
+                    </Button>
+                    <Button size="xs" color="alternative" disabled={recentlyAddedTableViewVisible} onClick={() => changeView("recentlyAdded")}>
+                        <FaStar className="mr-3 h-4 w-4" />
+                        {' '}Newest
+                    </Button>
+                </Button.Group>
+            </div>
+            <Table striped={true} className="whitespace-nowrap md:whitespace-normal" >
                 <Table.Head>
-                    <Table.HeadCell>
+                    <Table.HeadCell className='px-4 md:px-6'>
                     Tool name
                     </Table.HeadCell>
-                    <Table.HeadCell>
+                    <Table.HeadCell className='px-4 md:px-6'>
                     Categories
                     </Table.HeadCell>
-                    <Table.HeadCell>
+                    <Table.HeadCell className='hidden sm:table-cell'>
                     Links
                     </Table.HeadCell>
-                    <Table.HeadCell>
+                    <Table.HeadCell className='hidden sm:table-cell'>
                     Submitted by
                     </Table.HeadCell>
 
@@ -89,7 +91,7 @@ export default function ToolSearchTable(props: any) {
                             tablePreviewData.map((row: any, index: number) => {
                                 return (
                                     <Table.Row key={index}>
-                                        <Table.Cell>
+                                        <Table.Cell className='px-4 md:px-6'>
                                             <Link href={`/tool/${encodeURIComponent(row.id)}`}>
                                                 <a className='text-blue-600 hover:text-cyan-600'>
                                                     <img src={`${row.logo}`} width="28px" height="28px" className='inline mr-2 rounded-lg' />
@@ -97,7 +99,7 @@ export default function ToolSearchTable(props: any) {
                                                 </a>
                                             </Link>
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell className='px-2 md:px-6'>
                                             <div className='flex flex-wrap gap-2'>
                                                 {
                                                     row.tool_categories.map((category: any, index: number) => {
@@ -115,7 +117,7 @@ export default function ToolSearchTable(props: any) {
                                                 }
                                             </div>
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
                                             <Link href={row.tool_link}>
                                                 <a className='text-blue-600 hover:text-cyan-600'>Website</a>
                                             </Link>
@@ -140,7 +142,7 @@ export default function ToolSearchTable(props: any) {
                                                 ) : null
                                             }
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
                                         {
                                             row.submitted_by ? (
                                                 <Badge
@@ -173,8 +175,8 @@ export default function ToolSearchTable(props: any) {
                                     <br />Try with a few more letters, check for typos or submit your tool  <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here</a></Link>.
                                 </Table.Cell>
                                 <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
+                                <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
+                                <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
                             </Table.Row>
                         )}
                         <Table.Row>
@@ -182,8 +184,8 @@ export default function ToolSearchTable(props: any) {
                                 Submit your tool <br />with <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here on AppSmith</a></Link>.
                             </Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
+                            <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
                         </Table.Row>
                 </Table.Body>
             </Table>

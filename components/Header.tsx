@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 w-full clearNav z-50">
-      <div className="max-w-5xl mx-auto flex flex-wrap p-5 flex-col md:flex-row">
+      <div className="max-w-5xl mx-auto flex flex-wrap px-5 md:py-1 flex-col md:flex-row">
         <div className="flex flex-row items-center justify-between p-3 md:p-1">
           <Link
             href="/"
@@ -48,23 +48,23 @@ export default function Header() {
         </div>
         <div
           className={
-            "md:flex flex-grow items-center" +
-            (navbarOpen ? " flex" : " hidden")
+            "md:flex md:flex-grow items-center" +
+            (navbarOpen ? " flex flex-wrap" : " hidden")
           }
         >
-          <div className="md:ml-auto md:mr-auto font-4 pt-1 md:pl-14 pl-1 flex flex-wrap items-center md:text-base text-1xl md:justify-center justify-items-start">
-            <a href="https://github.com/julianyaman/tooldb" className="mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
+          <div className="md:mx-auto font-4 pt-1 lg:pl-14 pl-1 gap-6 md:gap-0 flex flex-wrap items-center md:text-base text-1xl md:justify-center justify-items-start">
+            <a href="https://github.com/julianyaman/tooldb" className="md:mr-5 lg:mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
               About
             </a>
-            <a href="https://julianyaman.com" className="mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
+            <a href="https://julianyaman.com" className="md:mr-5 lg:mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
               Blog
             </a>
             <Link href="/donate">
-              <a className="mr-12 ml-0 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
+              <a className="md:mr-5 lg:mr-11 ml-0 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
                 Donate
               </a>
             </Link>
-            <a href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334" className="mr-5 cursor-pointer text-yellow-300 hover:text-white font-semibold tr04 ">
+            <a target="_blank" rel="noreferrer" href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334" className="md:mr-5 cursor-pointer text-yellow-300 hover:text-white font-semibold tr04 ">
               Submit a tool
             </a>
           </div>
