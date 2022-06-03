@@ -99,7 +99,7 @@ export default function ToolSearchTable(props: any) {
                                                 </a>
                                             </Link>
                                         </Table.Cell>
-                                        <Table.Cell className='px-2 md:px-6'>
+                                        <Table.Cell className='px-4 md:px-6'>
                                             <div className='flex flex-wrap gap-2'>
                                                 {
                                                     row.tool_categories.map((category: any, index: number) => {

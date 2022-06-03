@@ -162,7 +162,7 @@ export default function ToolMain(props: any) {
                     Added on: {new Date(props.toolData.created_at).toLocaleString()}
                   </p>
                 </div>
-                <Link href={props.toolData.tool_link} target={"_blank"}>
+                <Link href={props.toolData.tool_link} target={"_blank"} rel="noreferrer">
                   <Button gradientMonochrome="green" className="min-w-full">
                     <FaLink />&nbsp;
                     Website
@@ -170,7 +170,7 @@ export default function ToolMain(props: any) {
                 </Link>
                 {
                   props.toolData.github_repo ? 
-                  <Link href={props.toolData.github_repo} target={"_blank"}>
+                  <Link href={props.toolData.github_repo} target={"_blank"} rel="noreferrer">
                     <Button color="light" className="min-w-full">
                       <FaGithub />&nbsp;
                       GitHub Repository
@@ -179,7 +179,7 @@ export default function ToolMain(props: any) {
                 }
                 {
                     props.toolData.twitter_link ? 
-                    <Link href={props.toolData.twitter_link} target={"_blank"}>
+                    <Link href={props.toolData.twitter_link} target={"_blank"} rel="noreferrer">
                       <Button gradientMonochrome="blue" className="min-w-full">
                         <FaTwitter />&nbsp;
                         Twitter

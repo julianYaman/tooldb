@@ -31,7 +31,7 @@ export default function Main(props: any) {
                     <Link href={`/category/${category.id}`}>
                       <a>
                         <Card className="cursor-pointer hover:bg-gray-200" key={index}>
-                          <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                          <h5 className="text-sm md:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
                             {category.category_icon} {category.category_name}
                           </h5>
                         </Card>

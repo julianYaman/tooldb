@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import { Avatar, Badge, Button, Table } from "flowbite-react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
@@ -24,55 +24,90 @@ export default function CategoryMain(props: any) {
             </div>
         </div>
         <div className="max-w-5xl mx-auto p-5">
-              {
-                props.categoryResults.map((tool: any) => {
-                  return (
-                    <>
-                    <div className="flex bg-white/10 mb-3 p-3 items-center" key={tool.tool_id}>
-                      <div className="flex-none">
-                        <Image src={tool.tools.logo} width={"120px"} height={"120px"} className="rounded-lg" alt={`Logo of ${tool.tools.tool_name}`} />
-                      </div>
-                      <div className="flex-auto">
-                          <div className="p-3 text-white">
-                            <h1 className="text-2xl text-left font-4 lh-6 ld-04 font-bold mb-3">
-                              <Link href={`/tool/${tool.tool_id}`}><a className="underline">{tool.tools.tool_name}</a></Link>
-                            </h1>
-                            <h2 className="text-lg font-4 lh-6 ld-04 pb-3 text-justify">
-                              {tool.tools.tool_description}
-                            </h2>
-                          </div>
-                      </div>
-                      <div className="flex flex-col space-y-3 flex-none pb-2 pt-2 mr-2">
-                        <Link href={tool.tools.tool_link} target={"_blank"}>
-                          <Button gradientMonochrome="green" className="min-w-full">
-                            <FaLink />&nbsp;
-                            Website
-                          </Button>
-                        </Link>
-                        {
-                          tool.tools.github_repo ? 
-                          <Link href={tool.tools.github_repo} target={"_blank"}>
-                            <Button color="light" className="min-w-full">
-                              <FaGithub />&nbsp;
-                              GitHub Repository
-                            </Button>
-                          </Link> : null
-                        }
-                        {
-                          tool.tools.twitter_link ? 
-                          <Link href={tool.tools.twitter_link} target={"_blank"}>
-                            <Button gradientMonochrome="blue" className="min-w-full">
-                              <FaTwitter />&nbsp;
-                              Twitter
-                            </Button>
-                          </Link> : null
-                        }
-                      </div>
-                    </div>
-                    </>
-                  )
-                })
-              }
+              <Table striped={true} className="whitespace-nowrap md:whitespace-normal" >
+                  <Table.Head>
+                      <Table.HeadCell className='px-4 md:px-6'>
+                      Tool name
+                      </Table.HeadCell>
+                      <Table.HeadCell className='px-3 md:px-6'>
+                      Links
+                      </Table.HeadCell>
+                      <Table.HeadCell className='hidden sm:table-cell'>
+                      Submitted by
+                      </Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body className="divide-y">
+                      {
+                            props.categoryResults.map((tool: any, index: number) => {
+                                  return (
+                                      <Table.Row key={index}>
+                                          <Table.Cell className='px-4 md:px-6'>
+                                              <Link href={`/tool/${encodeURIComponent(tool.tools.id)}`}>
+                                                  <a className='text-blue-600 hover:text-cyan-600'>
+                                                      <img src={`${tool.tools.logo}`} alt={`Logo of ${tool.tools.tool_name}`} width="28px" height="28px" className='inline mr-1 rounded-lg' />
+                                                      <span>{tool.tools.tool_name}</span>
+                                                  </a>
+                                              </Link>
+                                          </Table.Cell>
+                                          <Table.Cell className='px-3 md:px-6'>
+                                            <div className="flex flex-wrap gap-2">
+                                                <Link href={tool.tools.tool_link}>
+                                                  <Button size="sm" gradientMonochrome="green" className="flex-auto md:w-auto">
+                                                    <FaLink />
+                                                    <span className="hidden md:block">Website</span>
+                                                  </Button>
+                                                </Link>
+                                              {
+                                                  tool.tools.github_repo ? (
+                                                    <Link href={tool.tools.github_repo}>
+                                                      <Button size="sm" color="light" className="flex-auto md:w-auto">
+                                                        <FaGithub />
+                                                        <span className="hidden md:block">GitHub Repository</span>
+                                                      </Button>
+                                                    </Link>
+                                                  ) : null
+                                              }
+                                              {
+                                                  tool.tools.twitter_link ? (
+                                                    <Link href={tool.tools.twitter_link}>
+                                                      <Button size="sm" gradientMonochrome="blue" className="flex-auto md:w-auto">
+                                                        <FaTwitter />
+                                                        <span className="hidden md:block">Twitter</span>
+                                                      </Button>
+                                                    </Link>
+                                                  ) : null
+                                              }
+                                              </div>
+                                          </Table.Cell>
+                                          <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
+                                          {
+                                              tool.tools.submitted_by ? (
+                                                  <Badge
+                                                  size='xs'
+                                                  color='red'
+                                                  href={`https://github.com/${tool.tools.submitted_by}`}>
+                                                      <Avatar
+                                                          img={`https://avatars.githubusercontent.com/${tool.tools.submitted_by}`}
+                                                          size="xs"
+                                                          rounded={true}
+                                                      >
+                                                          <div className="space-y-1 font-medium dark:text-white">
+                                                              <div>
+                                                                  {tool.tools.submitted_by}
+                                                              </div>
+                                                          </div>
+                                                      </Avatar>
+                                                  </Badge>
+                                                  
+                                              ) : <p>No data</p>
+                                          }
+                                          </Table.Cell>
+                                      </Table.Row>
+                                  )
+                              })
+                          }
+                  </Table.Body>
+              </Table>
             </div>
       </section>
     );
