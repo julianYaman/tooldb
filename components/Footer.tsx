@@ -12,9 +12,9 @@ export default function Footer() {
                 <li>
                   <Link
                     className="hover:text-white transition-colors duration-200 text-xl"
-                    href="https://github.com/julianYaman/tooldb/issues"
+                    href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"
                   >
-                    <a target={"_blank"} className="hover:text-white">Submit a tool</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Submit a tool</a>
                   </Link>
                 </li>
                 <li>
@@ -22,7 +22,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianYaman/tooldb"
                   >
-                    <a target={"_blank"} className="hover:text-white">Contribute with code</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Contribute with code</a>
                   </Link>
                 </li>{" "}
                 <li>
@@ -30,7 +30,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianYaman/tooldb/issues"
                   >
-                    <a target={"_blank"} className="hover:text-white">Report a bug</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Report a bug</a>
                   </Link>
                 </li>{" "}
               </ul>
@@ -43,15 +43,15 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://julianyaman.com"
                   >
-                    <a target={"_blank"} className="hover:text-white">Blog</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Blog</a>
                   </Link>
                 </li>
                 <li>
                   <Link
                     className="hover:text-white transition-colors duration-200 text-xl"
-                    href="/"
+                    href="https://discord.gg/yAUmDNb"
                   >
-                    <a target={"_blank"} className="hover:text-white">Discord</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Discord</a>
                   </Link>
                 </li>
                 <li>
@@ -59,7 +59,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://mstdn.social/@tooldbdev"
                   >
-                    <a target={"_blank"} className="hover:text-white">Mastodon</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Mastodon</a>
                   </Link>
                 </li>
                 <li>
@@ -67,7 +67,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://mobile.twitter.com/tooldbdev"
                   >
-                    <a target={"_blank"} className="hover:text-white">Twitter</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Twitter</a>
                   </Link>
                 </li>
               </ul>
@@ -80,7 +80,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="/"
                   >
-                    <a target={"_blank"} className="hover:text-white">About</a>
+                    <a className="hover:text-white">About</a>
                   </Link>
                 </li>
                 <li>
@@ -88,7 +88,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="/donate"
                   >
-                    <a target={"_blank"} className="hover:text-white">Donate & Sponsors</a>
+                    <a className="hover:text-white">Donate & Sponsors</a>
                   </Link>
                 </li>
                 <li>
@@ -96,7 +96,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianyaman/tooldb"
                   >
-                    <a target={"_blank"} className="hover:text-white">Contributors</a>
+                    <a className="hover:text-white">Contributors</a>
                   </Link>
                 </li>
                 <li>
@@ -104,7 +104,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianyaman/tooldb"
                   >
-                    <a target={"_blank"} className="hover:text-white">Roadmap</a>
+                    <a className="hover:text-white">Roadmap</a>
                   </Link>
                 </li>
               </ul>
@@ -118,7 +118,7 @@ export default function Footer() {
                   href="https://www.iubenda.com/privacy-policy/97555269"
                   className="text-md text-gray-200 hover:text-white transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold"
                 >
-                  <a target={"_blank"} className="hover:text-white">Privacy Policy</a>
+                  <a target={"_blank"} rel="noreferrer" className="hover:text-white">Privacy Policy</a>
                 </Link>
               </li>
               <li>
@@ -126,7 +126,7 @@ export default function Footer() {
                   href="https://www.iubenda.com/privacy-policy/97555269/cookie-policy"
                   className="text-md text-gray-200 hover:text-white transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold"
                 >
-                  <a target={"_blank"} className="hover:text-white">Cookie Policy</a>
+                  <a target={"_blank"} rel="noreferrer" className="hover:text-white">Cookie Policy</a>
                 </Link>
               </li>
             </ul>
@@ -138,7 +138,7 @@ export default function Footer() {
                 © 2022 tooldb.
               </Link>
               <Link href="https://icons8.com">
-                <a target={"_blank"} className="hover:text-white">Icons from Icons8</a>
+                <a target={"_blank"} rel="noreferrer" className="hover:text-white">Icons from Icons8</a>
               </Link>
             </ul>
           </div>
