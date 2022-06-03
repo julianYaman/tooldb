@@ -11,8 +11,6 @@ import ImageNotLoaded from "../assets/ImageNotLoaded.png";
 
 export default function ToolMain(props: any) {
 
-    console.log(props.githubInfo)
-
     // Show the tool page depending on the id of the tool
     return (
       <section className="text-white-900 body-font static">
