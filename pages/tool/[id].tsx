@@ -63,7 +63,7 @@ export default function ToolPage(props: any) {
         {
             props.toolData && props?.toolData.isVerified ?
             ( !isSSR && <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool" size='xl' /></div>}>
-                <ToolMain toolData={props.toolData} toolDetailedDescription={props.toolDetailedDescription}/> 
+                <ToolMain toolData={props.toolData} toolDetailedDescription={props.toolDetailedDescription} githubInfo={props.githubInfo} /> 
             </Suspense>):
             (
             <section className="text-white-900 body-font">
@@ -85,11 +85,30 @@ export async function getStaticProps(context: any) {
     const tool = await fetch(`${server}/api/tools/${id}`).then(res => res.json());
 
     const toolDetailedDescription = tool?.tool_detailed_description ? await serialize(tool.tool_detailed_description) : ""
+
+    let githubInfo = null
+
+    if(tool.github_repo){
+        
+        // Parse the github username and the repo and remove the url parts
+        const githubUsername = tool.github_repo.split("/")[3]
+        const githubRepo = tool.github_repo.split("/")[4]
+
+        // Get the github info
+        githubInfo = await fetch(`https://api.github.com/repos/${githubUsername}/${githubRepo}`).then((res) => {
+            if(!res.ok){
+                return null
+            }
+            return res.json()
+        })
+    }
+
     
     return {
         props: {
             toolData: JSON.parse(JSON.stringify(tool)),
-            toolDetailedDescription
+            toolDetailedDescription,
+            githubInfo
         },
         revalidate: 600
     }

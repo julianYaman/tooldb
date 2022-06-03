@@ -2,12 +2,16 @@ import { Avatar, Badge, Button, Carousel, Spinner } from "flowbite-react";
 import Link from "next/link";
 import { MDXRemote } from 'next-mdx-remote'
 import { Suspense } from "react";
-import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
+import { FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
+import { RiFilePaper2Fill } from "react-icons/ri";
+import { CgGitFork } from "react-icons/cg";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 import Image from "next/image";
 import ImageNotLoaded from "../assets/ImageNotLoaded.png";
 
 export default function ToolMain(props: any) {
+
+    console.log(props.githubInfo)
 
     // Show the tool page depending on the id of the tool
     return (
@@ -16,7 +20,7 @@ export default function ToolMain(props: any) {
           <EmbeddedSearchbar />
         </div>
         <div className="flex flex-wrap flex-col md:flex-row max-w-5xl mx-auto pb-12 p-5">
-          <div className="basis-2/3 divide-y divide-white-200 pr-5">
+          <div className="basis-2/3 divide-y divide-white-200 md:pr-5 mb-5">
             <div id="toolData" className="flex gap-2">
               <div className="flex-none">
                 <Image src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
@@ -43,7 +47,27 @@ export default function ToolMain(props: any) {
                 </div>
               </div>
             </div>
-            <div id="tool_images" className="my-1 py-3">
+            {
+              props.githubInfo ? (
+                <div className="pt-2">
+                  <div className="flex bg-white text-center rounded-lg flex-wrap gap-2 p-2">
+                    <div className="md:flex-auto mx-auto">
+                      <p><FaStar className="inline align-text-top" color="orange" /> {props.githubInfo.stargazers_count} Stars</p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><a className="hover:pointer ease-in-out duration-300 hover:text-sky-500 text-sky-600 font-semibold" href={`https://github.com/${props.githubInfo.full_name}/issues`} target="_blank" rel="noreferrer"><FaExclamationCircle className="inline align-text-top" color="black" /> {props.githubInfo.open_issues_count} open issues</a></p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><CgGitFork className="inline align-text-top" color="black" /> {props.githubInfo.forks} forks</p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><RiFilePaper2Fill className="inline align-text-top" color="black" /> {props.githubInfo.license.name}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : null
+            }
+            <div id="tool_images" className="my-2 py-3">
               <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool Table" size='xl' /></div>}>
                 <Carousel slideInterval={5000} slide={true}>
                   {

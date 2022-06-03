@@ -9,9 +9,9 @@ export default function Main(props: any) {
     console.log(props)
 
     return (
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font p-1 md:p-0">
         <div className="max-w-5xl pt-52 pb-12 mx-auto">
-          <h1 className="text-80 text-center font-4 lh-6 ld-04 font-bold text-white mb-6">
+          <h1 className="antialiased text-5xl sm:text-7xl text-center font-4 lh-6 ld-04 font-bold text-white mb-6">
             Search the tool you need for your project
           </h1>
           <h2 className="text-2xl font-4 font-semibold lh-6 ld-04 pb-11 text-white text-center">
