@@ -53,7 +53,7 @@ export default function CategoryMain(props: any) {
                                             <div className="flex flex-wrap gap-2">
                                                 <Link href={tool.tools.tool_link}>
                                                   <Button size="sm" gradientMonochrome="green" className="flex-auto md:w-auto">
-                                                    <FaLink />
+                                                    <FaLink />&nbsp;
                                                     <span className="hidden md:block">Website</span>
                                                   </Button>
                                                 </Link>
@@ -61,7 +61,7 @@ export default function CategoryMain(props: any) {
                                                   tool.tools.github_repo ? (
                                                     <Link href={tool.tools.github_repo}>
                                                       <Button size="sm" color="light" className="flex-auto md:w-auto">
-                                                        <FaGithub />
+                                                        <FaGithub />&nbsp;
                                                         <span className="hidden md:block">GitHub Repository</span>
                                                       </Button>
                                                     </Link>
@@ -71,7 +71,7 @@ export default function CategoryMain(props: any) {
                                                   tool.tools.twitter_link ? (
                                                     <Link href={tool.tools.twitter_link}>
                                                       <Button size="sm" gradientMonochrome="blue" className="flex-auto md:w-auto">
-                                                        <FaTwitter />
+                                                        <FaTwitter />&nbsp;
                                                         <span className="hidden md:block">Twitter</span>
                                                       </Button>
                                                     </Link>
