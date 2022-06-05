@@ -2,7 +2,7 @@ import { Avatar, Badge, Button, Table, TextInput } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
 import { Suspense, useState } from 'react';
-import { FaStar, FaTable } from 'react-icons/fa';
+import { FaGithub, FaLink, FaStar, FaTable, FaTwitter } from 'react-icons/fa';
 
 
 export default function ToolSearchTable(props: any) {
@@ -69,21 +69,17 @@ export default function ToolSearchTable(props: any) {
                     </Button>
                 </Button.Group>
             </div>
-            <Table striped={true} className="whitespace-nowrap md:whitespace-normal" >
+            <Table striped={true} className="whitespace-nowrap md:whitespace-normal table-auto" >
                 <Table.Head>
                     <Table.HeadCell className='px-4 md:px-6'>
                     Tool name
                     </Table.HeadCell>
-                    <Table.HeadCell className='px-4 md:px-6'>
+                    <Table.HeadCell className='px-4 md:px-6 w-96'>
                     Categories
                     </Table.HeadCell>
-                    <Table.HeadCell className='hidden sm:table-cell'>
+                    <Table.HeadCell className='hidden sm:table-cell px-3 md:px-6'>
                     Links
                     </Table.HeadCell>
-                    <Table.HeadCell className='hidden sm:table-cell'>
-                    Submitted by
-                    </Table.HeadCell>
-
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
@@ -118,52 +114,34 @@ export default function ToolSearchTable(props: any) {
                                             </div>
                                         </Table.Cell>
                                         <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
-                                            <Link href={row.tool_link}>
-                                                <a className='text-blue-600 hover:text-cyan-600'>Website</a>
-                                            </Link>
-                                            {
-                                                row.github_repo ? (
-                                                    <>
-                                                        <span>; </span>
+                                            <div className="flex flex-wrap gap-2">
+                                                    <Link href={row.tool_link}>
+                                                        <Button size="xs" gradientMonochrome="green" className="flex-1 md:flex-auto">
+                                                            <FaLink />&nbsp;
+                                                            <span className="hidden md:block">Website</span>
+                                                        </Button>
+                                                    </Link>
+                                                {
+                                                    row.github_repo ? (
                                                         <Link href={row.github_repo}>
-                                                            <a className='text-blue-600 hover:text-cyan-600'>Repository</a>
+                                                            <Button size="xs" color="light" className="flex-1 md:flex-auto">
+                                                                <FaGithub />&nbsp;
+                                                                <span className="hidden md:block">GitHub Repo</span>
+                                                            </Button>
                                                         </Link>
-                                                    </>
-                                                ) : null
-                                            }
-                                            {
-                                                row.twitter_link ? (
-                                                    <>
-                                                        <span>; </span>
+                                                    ) : null
+                                                }
+                                                {
+                                                    row.twitter_link ? (
                                                         <Link href={row.twitter_link}>
-                                                            <a className='text-blue-600 hover:text-cyan-600'>Twitter</a>
+                                                            <Button size="xs" gradientMonochrome="blue" className="flex-1 md:flex-auto">
+                                                                <FaTwitter />&nbsp;
+                                                                <span className="hidden md:block">Twitter</span>
+                                                            </Button>
                                                         </Link>
-                                                    </>
-                                                ) : null
-                                            }
-                                        </Table.Cell>
-                                        <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
-                                        {
-                                            row.submitted_by ? (
-                                                <Badge
-                                                size='xs'
-                                                color='red'
-                                                href={`https://github.com/${row.submitted_by}`}>
-                                                    <Avatar
-                                                        img={`https://avatars.githubusercontent.com/${row.submitted_by}`}
-                                                        size="xs"
-                                                        rounded={true}
-                                                    >
-                                                        <div className="space-y-1 font-medium dark:text-white">
-                                                            <div>
-                                                                {row.submitted_by}
-                                                            </div>
-                                                        </div>
-                                                    </Avatar>
-                                                </Badge>
-                                                
-                                            ) : <p>No data</p>
-                                        }
+                                                    ) : null
+                                                }
+                                            </div>
                                         </Table.Cell>
                                     </Table.Row>
                                 )
@@ -176,7 +154,6 @@ export default function ToolSearchTable(props: any) {
                                 </Table.Cell>
                                 <Table.Cell></Table.Cell>
                                 <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
-                                <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
                             </Table.Row>
                         )}
                         <Table.Row>
@@ -184,7 +161,6 @@ export default function ToolSearchTable(props: any) {
                                 Submit your tool <br /> <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here on AppSmith</a></Link>.
                             </Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
                             <Table.Cell className='hidden sm:table-cell px-3 md:px-6'></Table.Cell>
                         </Table.Row>
                 </Table.Body>
