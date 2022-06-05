@@ -85,13 +85,13 @@ export default function ToolMain(props: any) {
                                 modifiedArray[index] = false
                                 setModal(modifiedArray);
                               }}
-                              size="4xl"
+                              size="5xl"
                             >
                               <Modal.Header>
                                 Image {index + 1}
                               </Modal.Header>
                               <Modal.Body>
-                                <div className="h-96 relative rounded-lg" style={{backgroundColor: vibrantColors[index] || "rgba(255,255,255,0.3)"}}>
+                                <div className="h-[36rem] relative rounded-lg" style={{backgroundColor: vibrantColors[index] || "rgba(255,255,255,0.3)"}}>
                                   <Image 
                                     src={image.image_link}
                                     layout="fill"
