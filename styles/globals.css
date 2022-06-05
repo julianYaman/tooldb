@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url(//db.onlinewebfonts.com/c/e5c490a944bc2b2746f0c851501e46c7?family=AvenirNextW10-Bold);
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 html,
 body {

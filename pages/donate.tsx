@@ -39,11 +39,11 @@ export default function Donate() {
       <section className="text-white-900 body-font">
         <div className="container flex flex-wrap flex-col max-w-5xl mx-auto pt-48 pb-6 p-5">
           <div id="categoryData">
-            <h1 className="text-5xl text-left font-4 lh-6 ld-04 font-bold text-white mb-5">
+            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5">
                   Donate
             </h1>
             <p className="text-lg font-4 pb-10 text-white leading-relaxed">
-              tooldb.dev is a free, open-source project. Donation help to cover the costs of hosting and maintaining the project.
+              tooldb.dev is a free, open-source project. Donations help to cover the costs of hosting and maintaining the project.
               Currently, we cannot offer any perks for donating, but they will be added in the future. Everyone who donated will be listed here.
             </p>
           </div>
@@ -52,7 +52,7 @@ export default function Donate() {
               You can donate here
             </h2>
             <div className="flex flex-wrap gap-3 justify-center mb-10">
-              <div className="flex-1">
+              <div className="flex-auto w-full md:w-auto md:flex-1">
                 <Link href={"https://github.com/julianyaman/sponsors"} target={"_blank"}>
                     <Button color="light" className="min-w-full">
                       <FaGithub />&nbsp;
@@ -60,7 +60,7 @@ export default function Donate() {
                     </Button>
                 </Link>
               </div>
-              <div className="flex-1">
+              <div className="flex-auto w-full md:w-auto md:flex-1">
                 <Link href={"https://github.com/julianyaman/sponsors"} target={"_blank"}>
                     <Button color="yellow" className="min-w-full">
                       <SiBuymeacoffee />&nbsp;
@@ -68,7 +68,7 @@ export default function Donate() {
                     </Button>
                 </Link>
               </div>
-              <div className="flex-1">
+              <div className="flex-auto w-full md:w-auto md:flex-1">
                 <Link href={"https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=SJHABMNBYCTBC&source=url"} target={"_blank"}>
                     <Button color="blue" className="min-w-full">
                       <FaPaypal />&nbsp;
@@ -76,7 +76,7 @@ export default function Donate() {
                     </Button>
                 </Link>
               </div>
-              <div className="flex-1">
+              <div className="flex-auto w-full md:w-auto md:flex-1">
                 <Link href={"https://bunq.me/yaman"} target={"_blank"}>
                     <Button color="red" className="min-w-full">
                       <SiBunq />&nbsp;
