@@ -1,15 +1,19 @@
-import { Avatar, Badge, Button, Carousel, Spinner } from "flowbite-react";
+import { Avatar, Badge, Button, Carousel, Modal, Spinner } from "flowbite-react";
 import Link from "next/link";
 import { MDXRemote } from 'next-mdx-remote'
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { CgGitFork } from "react-icons/cg";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 import Image from "next/image";
 import ImageNotLoaded from "../assets/ImageNotLoaded.png";
+import Vibrant from "node-vibrant"
 
 export default function ToolMain(props: any) {
+
+    const [vibrantColors, setVibrantColors] = useState<string[]>([]);
+    const [modals, setModal] = useState<boolean[]>([]);
 
     // Show the tool page depending on the id of the tool
     return (
@@ -24,7 +28,7 @@ export default function ToolMain(props: any) {
                 <Image src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
               </div>
               <div className="flex-1">
-                <h1 className="text-5xl text-left font-4 lh-6 ld-04 font-bold text-white mb-5">
+                <h1 className="text-5xl text-left font-4 lh-6 font-bold text-white mb-5">
                   {props.toolData.tool_name}
                 </h1>
                 <div className="flex flex-wrap gap-2 pb-5">
@@ -69,14 +73,63 @@ export default function ToolMain(props: any) {
               <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool Table" size='xl' /></div>}>
                 <Carousel slideInterval={5000} slide={true}>
                   {
+                    
                     props.toolData.tool_images.length > 0 ? (
                       props.toolData.tool_images.map((image: any, index: number) => {
                         return (
-                          <div key={index} className="flex w-full h-full bg-white/30">
+                          <div key={index} className="flex w-full h-full" style={{backgroundColor: vibrantColors[index] || "rgba(255,255,255,0.3)"}}>
+                            <Modal
+                              show={modals[index]}
+                              onClose={() => {
+                                let modifiedArray = [...modals];
+                                modifiedArray[index] = false
+                                setModal(modifiedArray);
+                              }}
+                              size="4xl"
+                            >
+                              <Modal.Header>
+                                Image {index + 1}
+                              </Modal.Header>
+                              <Modal.Body>
+                                <div className="h-96 relative rounded-lg" style={{backgroundColor: vibrantColors[index] || "rgba(255,255,255,0.3)"}}>
+                                  <Image 
+                                    src={image.image_link}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="rounded-lg"
+                                    alt={`Image of ${props.toolData.tool_name}`}
+                                  />
+                                </div>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                Image owner: {props.toolData.tool_name}
+                              </Modal.Footer>
+                            </Modal>
                             <Image
                               className="rounded-lg w-full"
                               src={image.image_link}
                               layout="fill"
+                              data-key={index}
+                              onLoadingComplete={async (e) => {
+                                Vibrant.from(image.image_link).getPalette().then(p => {
+                                  setModal(prevState => {
+                                    let newState = [...prevState]
+                                    newState[index] = false
+                                    return newState
+                                  })
+                                  setVibrantColors(prevState => {
+                                    // Thanks to @taubi19 on https://stackoverflow.com/questions/60754088/how-to-update-a-state-array-multiple-times-faster-than-the-setstate-without-over
+                                    let newState = [...prevState];
+                                    newState[index] = p.Vibrant?.getHex() ?? "rgba(255,255,255,0.5)";
+                                    return newState;
+                                  })
+                                })
+                              }}
+                              onClick={(e) => {
+                                let modifiedArray = [...modals]
+                                modifiedArray[index] = true;
+                                setModal(modifiedArray);
+                              }}
                               objectFit="contain"
                               onError={(e: any) => { e.target.src = ImageNotLoaded }}
                               alt={props.toolData.tool_name}
