@@ -45,7 +45,7 @@ export default function EmbeddedSearchbar(props: any) {
             />
             {
                 tableVisible ? (
-                    <div className='absolute w-full'>
+                    <div className='absolute w-full' style={{zIndex: "9999999999"}}>
                 <Table striped={true} className='max-h-96'>
                     <Table.Head>
                         <Table.HeadCell>
@@ -56,9 +56,6 @@ export default function EmbeddedSearchbar(props: any) {
                         </Table.HeadCell>
                         <Table.HeadCell>
                         Links
-                        </Table.HeadCell>
-                        <Table.HeadCell>
-                        Submitted by
                         </Table.HeadCell>
 
                     </Table.Head>
@@ -119,29 +116,6 @@ export default function EmbeddedSearchbar(props: any) {
                                                     ) : null
                                                 }
                                             </Table.Cell>
-                                            <Table.Cell>
-                                            {
-                                                row.submitted_by ? (
-                                                    <Badge
-                                                    size='xs'
-                                                    color='red'
-                                                    href={`https://github.com/${row.submitted_by}`}>
-                                                        <Avatar
-                                                            img={`https://avatars.githubusercontent.com/${row.submitted_by}`}
-                                                            size="xs"
-                                                            rounded={true}
-                                                        >
-                                                            <div className="space-y-1 font-medium dark:text-white">
-                                                                <div>
-                                                                    {row.submitted_by}
-                                                                </div>
-                                                            </div>
-                                                        </Avatar>
-                                                    </Badge>
-                                                    
-                                                ) : <p>No data</p>
-                                            }
-                                            </Table.Cell>
                                         </Table.Row>
                                     )
                                 })
@@ -153,14 +127,12 @@ export default function EmbeddedSearchbar(props: any) {
                                     </Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
-                                    <Table.Cell></Table.Cell>
                                 </Table.Row>
                             )}
                             <Table.Row>
                                 <Table.Cell>
-                                    Submit your tool <br />with <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here on AppSmith</a></Link>.
+                                    Submit your tool <br /> <Link href={"https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334"}><a className='text-blue-600 font-bold hover:text-cyan-600'>here on AppSmith</a></Link>.
                                 </Table.Cell>
-                                <Table.Cell></Table.Cell>
                                 <Table.Cell></Table.Cell>
                                 <Table.Cell></Table.Cell>
                             </Table.Row>
