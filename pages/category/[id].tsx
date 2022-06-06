@@ -16,16 +16,38 @@ export default function ToolPage(props: any) {
     return (
         <div className="text-black">
         <NextSeo
-            title={`${props.categoryData.category_name} - tooldb`}
-            description={`${props.categoryData.category_description}`}
+            title={`${props.categoryData?.category_icon || "🤔"} ${props.categoryData?.category_name + " Category" || "not found"} - tooldb`}
+            description={`${props.categoryData?.category_description || "Not found"}`}
             canonical={`https://tooldb.dev/category/${id}`}
             openGraph={{
                 url: `https://tooldb.dev/category/${id}`,
+                title: `${props.categoryData?.category_icon || "🤔"} ${props.categoryData?.category_name || ""} - tooldb`,
+                description: `About ${props.categoryData?.category_name || "the category which doesn't exists"}: ${props.categoryData?.category_description || "nice try"}`,
+                images: [
+                    {
+                        url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/favicon-160.png`,
+                        alt: `ToolDB logo`,
+                    },
+                ],
+                site_name: 'ToolDB',
             }}
+            twitter={{
+                site: '@tooldbdev',
+                cardType: 'summary',
+            }}
+            additionalLinkTags={[
+                {
+                    rel: 'icon',
+                    href: '/favicon.png',
+                },
+                {
+                    rel: 'apple-touch-icon',
+                    sizes: '76x76',
+                    href: '/favicon.png',
+                }
+            ]}
         />
         <Head>
-            <title>{props.categoryData.category_name} - tooldb</title>
-            <link rel="icon" href="/favicon.png" />
             <script defer data-domain="tooldb.dev" src="https://plausible.io/js/plausible.js"></script>
         </Head>
         <Script
