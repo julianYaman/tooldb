@@ -1,18 +1,53 @@
-import { Avatar, Badge, Button, Table, TextInput } from 'flowbite-react'
+import { Badge, Button, Progress, Table, TextInput } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
-import { Suspense, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaGithub, FaLink, FaStar, FaTable, FaTwitter } from 'react-icons/fa';
+import useSWR from 'swr';
 
+const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolSearchTable(props: any) {
 
-    const cachedPreviewData   = props.tablePreviewData.firstTools;
-    const cachedRecentlyAdded = props.tablePreviewData.recentlyAddedData;
-
-    const [tablePreviewData, setTablePreviewData] = useState(cachedPreviewData)
+    const [tablePreviewData, setTablePreviewData] = useState([])
     const [standardTableViewVisible, setStandardTableViewVisible] = useState(true)
     const [recentlyAddedTableViewVisible, setRecentlyAddedTableViewVisible] = useState(false)
+
+    const { data: standardData, error: standardError }: any = useSWR('/api/getEntries?get=standard', fetcher)
+    const { data: recentlyAddedData, error: recentlyAddedError }: any = useSWR('/api/getEntries?get=recentlyAdded', fetcher)
+    
+    useEffect(() => {
+        setTablePreviewData(standardData)
+    }, [standardData])
+
+    if (!standardData) return (
+        <div className="mx-auto max-w-5xl p-5 text-white">
+          <Progress
+            progress={50}
+            size="md"
+            label="Loading tooldb..."
+            labelPosition="outside"
+            labelProgress={true}
+          />
+        </div>
+      );
+    
+      if (standardError || recentlyAddedError){
+        return (
+            <div className="mx-auto max-w-5xl text-white">
+                <Progress
+                progress={100}
+                size="md"
+                color="red"
+                label="An error occurred while loading tooldb"
+                labelPosition="outside"
+                labelProgress={true}
+                />
+            </div>
+        );
+      }
+
+    
 
     const showSearchResults = async (searchTerm: string) => {
 
@@ -23,11 +58,11 @@ export default function ToolSearchTable(props: any) {
             if(response.data.length > 0){
                 setTablePreviewData(response.data)
             } else {
-                setTablePreviewData(null)
+                setTablePreviewData([])
             }
 
         } else {
-            setTablePreviewData(cachedPreviewData)
+            setTablePreviewData(standardData)
         }
     
     }
@@ -36,11 +71,11 @@ export default function ToolSearchTable(props: any) {
         if (view === 'standard'){
             setStandardTableViewVisible(true)
             setRecentlyAddedTableViewVisible(false)
-            setTablePreviewData(cachedPreviewData)
+            setTablePreviewData(standardData)
         } else if (view === 'recentlyAdded'){
             setStandardTableViewVisible(false)
             setRecentlyAddedTableViewVisible(true)
-            setTablePreviewData(cachedRecentlyAdded)
+            setTablePreviewData(recentlyAddedData)
         }
     }
 

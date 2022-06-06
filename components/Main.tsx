@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 const ToolSearchTable = React.lazy(() => import("./ToolSearchTable"))
-import { Suspense } from "react";
-import { Card, Spinner } from 'flowbite-react';
+import { Card, Progress, Spinner } from 'flowbite-react';
 import Link from 'next/link';
+import useSWR from 'swr';
+import axios from 'axios';
+
+const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function Main(props: any) {
+
+    const [isLoading, setIsLoading] = React.useState(true);
+    const { data: categoriesData, error: categoriesError }: any = useSWR('/api/getEntries?get=categories', fetcher)
+
+    useEffect(() => {
+      setIsLoading(false);
+    }, [])
+
+    if (categoriesError){
+      return (
+        <div className="mx-auto max-w-5xl text-white">
+          <Progress
+            progress={100}
+            size="md"
+            color="red"
+            label="An error occurred while loading tooldb"
+            labelPosition="outside"
+            labelProgress={true}
+          />
+        </div>
+      );
+    }
+
+
 
     return (
       <section className="text-gray-600 body-font p-1 md:p-0">
@@ -17,27 +44,41 @@ export default function Main(props: any) {
           </h2>
         </div>
         <div className="container max-w-5xl flex flex-col gap-4 mx-auto">
-          <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool Table" size='xl' /></div>}>
-            <ToolSearchTable tablePreviewData={props.tablePreviewData}/>
-          </Suspense>
+          {
+            isLoading ? (
+              <div className="text-center">
+                <Spinner aria-label="Loading tooldb" size='xl' />
+              </div>
+            ) : (
+              <React.Suspense fallback={<div className="text-center mx-auto"><Spinner aria-label="Loading tooldb" size='xl' /></div>}>
+                <ToolSearchTable categories={categoriesData} />
+              </React.Suspense>
+            )
+          }
           <h3 className='text-center text-lg font-bold text-white'>Or look into the categories below</h3>
           <div className="flex flex-wrap gap-2 pb-5">
             {
-              props.categories.map((category: any, index: number) => {
-                return (
-                  <div className='flex-auto' key={index}>
-                    <Link href={`/category/${category.id}`}>
-                      <a>
-                        <Card className="cursor-pointer hover:bg-gray-200" key={index}>
-                          <h5 className="text-sm md:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                            {category.category_icon} {category.category_name}
-                          </h5>
-                        </Card>
-                      </a>
-                    </Link>
-                  </div>
-                )
-              })
+              categoriesData ?
+                categoriesData.map((category: any, index: number) => {
+                  return (
+                    <div className='flex-auto' key={index}>
+                      <Link href={`/category/${category.id}`}>
+                        <a>
+                          <Card className="cursor-pointer hover:bg-gray-200" key={index}>
+                            <h5 className="text-sm md:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                              {category.category_icon} {category.category_name}
+                            </h5>
+                          </Card>
+                        </a>
+                      </Link>
+                    </div>
+                  )
+                }) : (
+                <div className="text-center mx-auto">
+                  <Spinner aria-label="Loading categories" size='xl' />
+                  <p className="text-white">Loading categories</p>
+                </div>
+              )
             }
             </div>
         </div>
