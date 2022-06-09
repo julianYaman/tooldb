@@ -63,7 +63,7 @@ export default function ToolMain(props: any) {
                       <p><CgGitFork className="inline align-text-top" color="black" /> {props.githubInfo.forks} forks</p>
                     </div>
                     <div className="md:flex-auto mx-auto">
-                      <p><RiFilePaper2Fill className="inline align-text-top" color="black" /> {props.githubInfo.license.name}</p>
+                      <p><RiFilePaper2Fill className="inline align-text-top" color="black" /> {props.githubInfo?.license?.name || "No license"}</p>
                     </div>
                   </div>
                 </div>

@@ -11,6 +11,7 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "raw.githubusercontent.com",
       "camo.githubusercontent.com",
+      "user-images.githubusercontent.com"
     ]
   }
 }
