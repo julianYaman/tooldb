@@ -92,11 +92,11 @@ export default function ToolSearchTable(props: any) {
         }
     }
 
-    const changePage = async (page: number) => {
+    const changePage = async (pageNumber: number) => {
 
         let queriedTable;
-
-        if(!isSearching){
+        
+        if(!isSearching && (pageNumber != page)){
 
             if(standardTableViewVisible){
                 queriedTable = "standard"
@@ -105,8 +105,8 @@ export default function ToolSearchTable(props: any) {
             }
             
             try {
-                const queryNextPage = await axios.get(`/api/getEntries?get=${queriedTable}&page=${page}`)
-                setPage(page) 
+                const queryNextPage = await axios.get(`/api/getEntries?get=${queriedTable}&page=${pageNumber}`)
+                setPage(pageNumber) 
                 setTablePreviewData(queryNextPage.data.tools)
             } catch (error) {
                 console.error("An error happened while trying to paginate through the results. Please inform a developer.")

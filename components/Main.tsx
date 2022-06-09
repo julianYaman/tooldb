@@ -18,7 +18,7 @@ export default function Main(props: any) {
 
     if (categoriesError){
       return (
-        <div className="mx-auto max-w-5xl text-white">
+        <div className="mx-auto pt-52 pb-52 max-w-5xl text-white">
           <Progress
             progress={100}
             size="md"
