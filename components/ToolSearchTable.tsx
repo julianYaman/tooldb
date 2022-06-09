@@ -1,4 +1,4 @@
-import { Badge, Button, Pagination, Progress, Spinner, Table, TextInput } from 'flowbite-react'
+import { Avatar, Badge, BadgeColor, Button, Pagination, Progress, Spinner, Table, TextInput, Tooltip } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react';
@@ -184,7 +184,36 @@ export default function ToolSearchTable(props: any) {
                                             </Link>
                                         </Table.Cell>
                                         <Table.Cell className='px-4 md:px-6'>
-                                            <div className='flex flex-wrap gap-2'>
+                                            <div className='flex flex-wrap gap-2 items-center'>
+                                                {
+                                                    (row.submitted_by_type === "partner") ? (
+                                                        <Tooltip
+                                                            content={row.collaboration_partners.partner_description}
+                                                            placement="top"
+                                                        >
+                                                            <Badge
+                                                            color={"green"}
+                                                            size="xs"
+                                                            icon={FaStar}
+                                                            href={row.collaboration_partners.partner_link}
+                                                            >
+                                                                <div className='flex justify-center items-center'>
+                                                                {
+                                                                    row.collaboration_partners.partner_logo ? (
+                                                                            <Avatar
+                                                                                img={row.collaboration_partners.partner_logo}
+                                                                                size="xs"
+                                                                                rounded={true}
+                                                                            />
+                                                                            
+                                                                    ) : null
+                                                                }
+                                                                <span className='ml-1'>{row.collaboration_partners.partner}</span>
+                                                                </div>
+                                                            </Badge>
+                                                        </Tooltip>
+                                                    ) : null
+                                                }
                                                 {
                                                     row.tool_categories.map((category: any, index: number) => {
                                                         return (

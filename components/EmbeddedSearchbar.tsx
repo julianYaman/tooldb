@@ -1,7 +1,8 @@
-import { Avatar, Badge, Table, TextInput } from 'flowbite-react'
+import { Avatar, Badge, Table, TextInput, Tooltip } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
 import { Suspense, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 
 
 export default function EmbeddedSearchbar(props: any) {
@@ -74,7 +75,36 @@ export default function EmbeddedSearchbar(props: any) {
                                                 </Link>
                                             </Table.Cell>
                                             <Table.Cell>
-                                                <div className='flex flex-wrap gap-2'>
+                                                <div className='flex flex-wrap gap-2 items-center'>
+                                                {
+                                                    (row.submitted_by_type === "partner") ? (
+                                                            <Tooltip
+                                                                content={`About ${row.collaboration_partners.partner}: ${row.collaboration_partners.partner_description}`}
+                                                                placement="top"
+                                                            >
+                                                                <Badge
+                                                                color={"green"}
+                                                                size="xs"
+                                                                icon={FaStar}
+                                                                href={row.collaboration_partners.partner_link}
+                                                                >
+                                                                    <div className='flex justify-center items-center'>
+                                                                    {
+                                                                        row.collaboration_partners.partner_logo ? (
+                                                                                <Avatar
+                                                                                    img={row.collaboration_partners.partner_logo}
+                                                                                    size="xs"
+                                                                                    rounded={true}
+                                                                                />
+                                                                                
+                                                                        ) : null
+                                                                    }
+                                                                    <span className='ml-1'>{row.collaboration_partners.partner}</span>
+                                                                    </div>
+                                                                </Badge>
+                                                            </Tooltip>
+                                                        ) : null
+                                                    }
                                                     {
                                                         row.tool_categories.map((category: any, index: number) => {
                                                             return (

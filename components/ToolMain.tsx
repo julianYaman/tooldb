@@ -1,4 +1,4 @@
-import { Avatar, Badge, Button, Carousel, Modal, Spinner } from "flowbite-react";
+import { Avatar, Badge, Button, Carousel, Modal, Spinner, Tooltip } from "flowbite-react";
 import Link from "next/link";
 import { MDXRemote } from 'next-mdx-remote'
 import { Suspense, useState } from "react";
@@ -193,23 +193,61 @@ export default function ToolMain(props: any) {
               <div className="space-y-3">
                 <div>
                   <p className="text-lg font-bold pb-3">
-                    Submitted by:
-                    <Badge
-                      size='xs'
-                      color='red'
-                      href={`https://github.com/${props.toolData.submitted_by}`}>
-                          <Avatar
-                              img={`https://avatars.githubusercontent.com/${props.toolData.submitted_by}`}
-                              size="xs"
-                              rounded={true}
+                    
+                    {
+                      props.toolData.submitted_by_type === "partner" ? (
+                        
+                        <div className="w-full mt-1">
+                          <span>Brought to you by:</span>
+                          <Badge
+                          color={"green"}
+                          // @ts-ignore
+                          size="md"
+                          icon={FaStar}
+                          href={props.toolData.collaboration_partners.partner_link}
                           >
-                              <div className="space-y-1 font-medium dark:text-white">
-                                  <div>
-                                      {props.toolData.submitted_by}
-                                  </div>
+                            <Tooltip
+                                content={`About ${props.toolData.collaboration_partners.partner}: ${props.toolData.collaboration_partners.partner_description}`}
+                                placement="top"
+                            >
+                              <div className='flex justify-center items-center font-medium dark:text-white w-full p-1'>
+                              {
+                                  props.toolData.collaboration_partners.partner_logo ? (
+                                          <Avatar
+                                              img={props.toolData.collaboration_partners.partner_logo}
+                                              size="sm"
+                                              rounded={true}
+                                          />
+                                          
+                                  ) : null
+                              }
+                              <span className='ml-1 font-bold'>{props.toolData.collaboration_partners.partner}</span>
                               </div>
-                          </Avatar>
-                      </Badge>
+                            </Tooltip>
+                          </Badge>
+                        </div>
+                      ) : (
+                        <div>
+                          <span>Submitted by:</span>
+                          <Badge
+                            size='xs'
+                            color='red'
+                            href={`https://github.com/${props.toolData.submitted_by}`}>
+                                <Avatar
+                                    img={`https://avatars.githubusercontent.com/${props.toolData.submitted_by}`}
+                                    size="xs"
+                                    rounded={true}
+                                >
+                                    <div className="space-y-1 font-medium dark:text-white">
+                                        <div>
+                                            {props.toolData.submitted_by}
+                                        </div>
+                                    </div>
+                                </Avatar>
+                          </Badge>
+                        </div>
+                      )
+                    }
                   </p>
                   <p className="text-gray-500 pb-3">
                     Added on: {new Date(props.toolData.created_at).toLocaleString()}

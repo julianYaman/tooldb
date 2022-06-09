@@ -25,7 +25,23 @@ export default async function handler(
                 category_id: parseInt(id)
             },
             include: {
-                tools: true,
+                tools: {
+                    select: {
+                        tool_name: true,
+                        discord_link: true,
+                        github_repo: true,
+                        id: true,
+                        logo: true,
+                        submitted_by: true,
+                        submitted_by_type: true,
+                        tool_description: true,
+                        tool_link: true,
+                        twitter_link: true,
+                        upvotes: true,
+                        isVerified: true,
+                        collaboration_partners: true
+                    }
+                },
             },
         });
     

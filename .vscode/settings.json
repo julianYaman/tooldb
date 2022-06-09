@@ -6,6 +6,7 @@
         "toolPage",
         "mainPage",
         "categoryPage",
-        "search"
+        "search",
+        "tools"
     ]
 }

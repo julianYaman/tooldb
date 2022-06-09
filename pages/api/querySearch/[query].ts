@@ -11,6 +11,7 @@ export default async function handler(req: any, res: any) {
             id: true,
             tool_name: true,
             submitted_by: true,
+            submitted_by_type: true,
             tool_link: true,
             discord_link: true,
             github_repo: true,

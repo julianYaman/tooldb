@@ -73,5 +73,7 @@ model collaboration_partners {
   partner             String?
   partner_link        String?
   partner_description String?
+  partner_badge_color String    @default("success") @db.VarChar
+  partner_logo        String?
   tools               tools[]
 }

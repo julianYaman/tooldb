@@ -1,7 +1,7 @@
-import { Avatar, Badge, Button, Table } from "flowbite-react";
+import { Avatar, Badge, Button, Table, Tooltip } from "flowbite-react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaDiscord, FaGithub, FaLink, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 
 export default function CategoryMain(props: any) {
@@ -91,25 +91,55 @@ export default function CategoryMain(props: any) {
                                           </Table.Cell>
                                           <Table.Cell className='hidden sm:table-cell px-3 md:px-6'>
                                           {
-                                              tool.tools.submitted_by ? (
-                                                  <Badge
-                                                  size='xs'
-                                                  color='red'
-                                                  href={`https://github.com/${tool.tools.submitted_by}`}>
-                                                      <Avatar
-                                                          img={`https://avatars.githubusercontent.com/${tool.tools.submitted_by}`}
-                                                          size="xs"
-                                                          rounded={true}
+                                              tool.tools.submitted_by_type === "partner" ? (
+                                                    <div className="w-full">
+                                                      <Badge
+                                                      color={"green"}
+                                                      size="sm"
+                                                      icon={FaStar}
+                                                      href={tool.tools.collaboration_partners.partner_link}
                                                       >
-                                                          <div className="space-y-1 font-medium dark:text-white">
-                                                              <div>
-                                                                  {tool.tools.submitted_by}
-                                                              </div>
+                                                        <Tooltip
+                                                            content={`About ${tool.tools.collaboration_partners.partner}: ${tool.tools.collaboration_partners.partner_description}`}
+                                                            placement="top"
+                                                        >
+                                                          <div className='flex justify-center items-center font-medium dark:text-white w-full p-1'>
+                                                          {
+                                                              tool.tools.collaboration_partners.partner_logo ? (
+                                                                      <Avatar
+                                                                          img={tool.tools.collaboration_partners.partner_logo}
+                                                                          size="xs"
+                                                                          rounded={true}
+                                                                      />
+                                                                      
+                                                              ) : null
+                                                          }
+                                                          <span className='ml-1'>{tool.tools.collaboration_partners.partner}</span>
                                                           </div>
-                                                      </Avatar>
-                                                  </Badge>
-                                                  
-                                              ) : <p>No data</p>
+                                                        </Tooltip>
+                                                      </Badge>
+                                                    </div>
+                                              ) : (
+                                                tool.tools.submitted_by ? (
+                                                    <Badge
+                                                    size='xs'
+                                                    color='red'
+                                                    href={`https://github.com/${tool.tools.submitted_by}`}>
+                                                        <Avatar
+                                                            img={`https://avatars.githubusercontent.com/${tool.tools.submitted_by}`}
+                                                            size="xs"
+                                                            rounded={true}
+                                                        >
+                                                            <div className="space-y-1 font-medium dark:text-white">
+                                                                <div>
+                                                                    {tool.tools.submitted_by}
+                                                                </div>
+                                                            </div>
+                                                        </Avatar>
+                                                    </Badge>
+                                                    
+                                                ) : <p>No data</p>
+                                              )
                                           }
                                           </Table.Cell>
                                       </Table.Row>
