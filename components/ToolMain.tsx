@@ -2,7 +2,7 @@ import { Avatar, Badge, Button, Carousel, Modal, Spinner } from "flowbite-react"
 import Link from "next/link";
 import { MDXRemote } from 'next-mdx-remote'
 import { Suspense, useState } from "react";
-import { FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { CgGitFork } from "react-icons/cg";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
@@ -236,6 +236,15 @@ export default function ToolMain(props: any) {
                       <Button gradientMonochrome="blue" className="min-w-full">
                         <FaTwitter />&nbsp;
                         Twitter
+                      </Button>
+                    </Link> : null
+                  }
+                  {
+                    props.toolData.discord_link ? 
+                    <Link href={props.toolData.discord_link} target={"_blank"} rel="noreferrer">
+                      <Button gradientMonochrome="purple" className="min-w-full">
+                        <FaDiscord />&nbsp;
+                        Discord
                       </Button>
                     </Link> : null
                   }

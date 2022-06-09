@@ -1,7 +1,7 @@
 import { Avatar, Badge, Button, Table } from "flowbite-react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaGithub, FaLink, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaLink, FaTwitter } from "react-icons/fa";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 
 export default function CategoryMain(props: any) {
@@ -73,6 +73,16 @@ export default function CategoryMain(props: any) {
                                                       <Button size="sm" gradientMonochrome="blue" className="flex-auto md:w-auto">
                                                         <FaTwitter />&nbsp;
                                                         <span className="hidden md:block">Twitter</span>
+                                                      </Button>
+                                                    </Link>
+                                                  ) : null
+                                              }
+                                              {
+                                                  tool.tools.discord_link ? (
+                                                    <Link href={tool.tools.discord_link}>
+                                                      <Button size="sm" gradientMonochrome="purple" className="flex-auto md:w-auto">
+                                                        <FaDiscord />&nbsp;
+                                                        <span className="hidden md:block">Discord</span>
                                                       </Button>
                                                     </Link>
                                                   ) : null
