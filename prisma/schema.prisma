@@ -46,19 +46,32 @@ model tool_images {
 }
 
 model tools {
-  id                        Int            @id @default(autoincrement())
-  created_at                DateTime?         @default(now()) @db.Timestamptz(6)
-  updated_at                DateTime?         @default(now()) @db.Timestamptz(6)
+  id                        Int                  @id @default(autoincrement())
+  created_at                DateTime?               @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime?               @default(now()) @db.Timestamptz(6)
   tool_name                 String?
   tool_link                 String?
   tool_description          String?
   github_repo               String?
   twitter_link              String?
-  upvotes                   Int?              @db.SmallInt
-  logo                      String?           @default("NULL")
+  upvotes                   Int?                    @db.SmallInt
+  logo                      String?                 @default("NULL")
   submitted_by              String?
   tool_detailed_description String?
-  isVerified                Boolean           @default(false)
+  isVerified                Boolean                 @default(false)
+  discord_link              String?
+  submitted_by_type         String                  @default("github")
+  partner_id                Int?
+  collaboration_partners    collaboration_partners? @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tool_categories           tool_categories[]
   tool_images               tool_images[]
+}
+
+model collaboration_partners {
+  id                  Int    @id @default(autoincrement())
+  created_at          DateTime? @default(now()) @db.Timestamptz(6)
+  partner             String?
+  partner_link        String?
+  partner_description String?
+  tools               tools[]
 }

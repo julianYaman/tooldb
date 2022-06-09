@@ -12,6 +12,7 @@ export default async function handler(req: any, res: any) {
             tool_name: true,
             submitted_by: true,
             tool_link: true,
+            discord_link: true,
             github_repo: true,
             twitter_link: true,
             logo: true,
@@ -26,6 +27,7 @@ export default async function handler(req: any, res: any) {
                     }
                 }
             },
+            collaboration_partners: true,
         },
         where: {
             tool_name: {
@@ -34,6 +36,8 @@ export default async function handler(req: any, res: any) {
             },
             isVerified: true
         },
+        take: 10,
+        skip: ((parseInt(req.query.page.toString()) - 1) * 10) || 0,
     })
 
     res.json(tools)

@@ -44,6 +44,8 @@ export default async function handler(
                 tool_name: true,
                 tool_description: true,
                 submitted_by: true,
+                discord_link: true,
+                submitted_by_type: true,
                 tool_link: true,
                 github_repo: true,
                 twitter_link: true,
@@ -66,7 +68,8 @@ export default async function handler(
                     select: {
                         image_link: true
                     }
-                }
+                },
+                collaboration_partners: true
             },
             where: {
                 id: parseInt(id),

@@ -15,7 +15,7 @@ export default function EmbeddedSearchbar(props: any) {
 
             setTableVisibility(true)
     
-            const response = await axios.get('/api/querySearch/' + encodeURIComponent(searchTerm))
+            const response = await axios.get('/api/querySearch/' + encodeURIComponent(searchTerm) + "?page=1")
     
             if(response.data.length > 0){           
                 setResults(response.data)

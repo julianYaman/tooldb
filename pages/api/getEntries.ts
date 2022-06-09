@@ -3,21 +3,27 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from './../../db'
 
 type StandardViewResponse = {
-  tool_categories: {
-      categories: {
-          id: number;
-          category_name: string | null;
-          category_icon: string | null;
-      } | null;
-  }[];
-  id: number;
-  tool_name: string | null;
-  submitted_by: string | null;
-  tool_link: string | null;
-  logo: string | null;
-  github_repo: string | null;
-  twitter_link: string | null;
-}[]
+  tools: {
+    tool_categories: {
+        categories: {
+            id: number;
+            category_name: string | null;
+            category_icon: string | null;
+        } | null;
+    }[];
+    id: number;
+    tool_name: string | null;
+    submitted_by: string | null;
+    tool_link: string | null;
+    logo: string | null;
+    github_repo: string | null;
+    twitter_link: string | null;
+    submitted_by_type: string;
+    discord_link: string | null;
+    upvotes: number | null ;
+  }[],
+  count: number
+}
 
 type CategoriesResponse = {
   id: number;
@@ -43,6 +49,9 @@ export default async function handler(
         id: true,
         tool_name: true,
         submitted_by: true,
+        submitted_by_type: true,
+        discord_link: true,
+        upvotes: true,
         tool_link: true,
         logo: true,
         github_repo: true,
@@ -58,14 +67,18 @@ export default async function handler(
             }
           }
         },
+        collaboration_partners: true
       },
+      skip: ((parseInt(params?.page?.toString()) - 1) * 10) || 0,
       take: 10,
       where: {
         isVerified: true
       }
     });
 
-    return res.status(200).json(tools)
+    const count = await prisma.tools.count();
+
+    return res.status(200).json({tools, count})
   }
 
   if (params.get === "categories") {
@@ -90,6 +103,9 @@ export default async function handler(
         id: true,
         tool_name: true,
         submitted_by: true,
+        submitted_by_type: true,
+        discord_link: true,
+        upvotes: true,
         tool_link: true,
         logo: true,
         github_repo: true,
@@ -105,7 +121,9 @@ export default async function handler(
             }
           }
         },
+        collaboration_partners: true
       },
+      skip: ((parseInt(params?.page?.toString()) - 1) * 10) || 0,
       take: 10,
       orderBy: {
         created_at: "desc"
@@ -115,7 +133,9 @@ export default async function handler(
       }
     });
 
-    return res.status(200).json(recentlyAdded)
+    const count = await prisma.tools.count();
+
+    return res.status(200).json({tools: recentlyAdded, count})
   }
 
   return res.status(200).json({

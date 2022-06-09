@@ -5,6 +5,7 @@
         "api",
         "toolPage",
         "mainPage",
-        "categoryPage"
+        "categoryPage",
+        "search"
     ]
 }

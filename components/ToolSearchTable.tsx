@@ -1,24 +1,29 @@
-import { Badge, Button, Progress, Table, TextInput } from 'flowbite-react'
+import { Badge, Button, Pagination, Progress, Spinner, Table, TextInput } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
-import { useEffect, useState } from 'react';
-import { FaGithub, FaLink, FaStar, FaTable, FaTwitter } from 'react-icons/fa';
+import { useEffect, useRef, useState } from 'react';
+import { FaDiscord, FaGithub, FaLink, FaStar, FaTable, FaTwitter } from 'react-icons/fa';
 import useSWR from 'swr';
 
 const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolSearchTable(props: any) {
 
+    let maxPages = useRef(0);
+
     const [tablePreviewData, setTablePreviewData] = useState([])
     const [standardTableViewVisible, setStandardTableViewVisible] = useState(true)
     const [recentlyAddedTableViewVisible, setRecentlyAddedTableViewVisible] = useState(false)
+    const [isSearching, setSearchState] = useState(false)
+    const [page, setPage] = useState(1)
 
     const { data: standardData, error: standardError }: any = useSWR('/api/getEntries?get=standard', fetcher)
     const { data: recentlyAddedData, error: recentlyAddedError }: any = useSWR('/api/getEntries?get=recentlyAdded', fetcher)
     
     useEffect(() => {
-        setTablePreviewData(standardData)
-    }, [standardData])
+        setTablePreviewData(standardData?.tools)
+        maxPages.current = standardData?.count
+    }, [standardData?.tools, standardData?.count])
 
     if (!standardData) return (
         <div className="mx-auto max-w-5xl p-5 text-white">
@@ -47,22 +52,28 @@ export default function ToolSearchTable(props: any) {
         );
       }
 
-    
-
     const showSearchResults = async (searchTerm: string) => {
 
         if (searchTerm.length > 3){
     
-            const response = await axios.get('/api/querySearch/' + encodeURIComponent(searchTerm))
+            const response = await axios.get('/api/querySearch/' + encodeURIComponent(searchTerm) + "?page=1")
     
             if(response.data.length > 0){
                 setTablePreviewData(response.data)
+                setPage(1)
+                maxPages.current = 1
             } else {
                 setTablePreviewData([])
+                setPage(1)
+                maxPages.current = 1
             }
 
+            setSearchState(true)
+
         } else {
-            setTablePreviewData(standardData)
+            setTablePreviewData(standardData.tools)
+            setSearchState(false)
+            maxPages.current = standardData.count
         }
     
     }
@@ -71,38 +82,80 @@ export default function ToolSearchTable(props: any) {
         if (view === 'standard'){
             setStandardTableViewVisible(true)
             setRecentlyAddedTableViewVisible(false)
-            setTablePreviewData(standardData)
+            setTablePreviewData(standardData.tools)
+            setPage(1)
         } else if (view === 'recentlyAdded'){
             setStandardTableViewVisible(false)
             setRecentlyAddedTableViewVisible(true)
-            setTablePreviewData(recentlyAddedData)
+            setTablePreviewData(recentlyAddedData.tools)
+            setPage(1)
         }
+    }
+
+    const changePage = async (page: number) => {
+
+        let queriedTable;
+
+        if(!isSearching){
+
+            if(standardTableViewVisible){
+                queriedTable = "standard"
+            }else{
+                queriedTable = "recentlyAdded"
+            }
+            
+            try {
+                const queryNextPage = await axios.get(`/api/getEntries?get=${queriedTable}&page=${page}`)
+                setPage(page) 
+                setTablePreviewData(queryNextPage.data.tools)
+            } catch (error) {
+                console.error("An error happened while trying to paginate through the results. Please inform a developer.")
+            }
+            
+        }
+
     }
 
     return (
         <>
-            <TextInput
-                id="large"
-                type="text"
-                sizing="lg"
-                placeholder='Search a tool...'
-                onChange={(e) => 
-                    {
-                        showSearchResults(e.target.value)
+            <h3 className='text-center text-md text-white font-bold'>Search through {maxPages.current || <Spinner />} tools</h3>
+            <div className='px-1'>
+                <TextInput
+                    id="large"
+                    type="text"
+                    sizing="lg"
+                    placeholder='Search a tool...'
+                    onChange={(e) => 
+                        {
+                            showSearchResults(e.target.value)
+                        }
                     }
-                }
-            />
-            <div className='mx-auto'>
-                <Button.Group outline={true} >
-                    <Button size="xs" color="alternative" disabled={standardTableViewVisible} onClick={() => changeView("standard")}>
-                        <FaTable className="mr-3 h-4 w-4" />
-                        {' '}Standard
-                    </Button>
-                    <Button size="xs" color="alternative" disabled={recentlyAddedTableViewVisible} onClick={() => changeView("recentlyAdded")}>
-                        <FaStar className="mr-3 h-4 w-4" />
-                        {' '}Newest
-                    </Button>
-                </Button.Group>
+                />
+            </div>
+            <div className='flex flex-wrap justify-center px-1'>
+                <div className='xs:mt-0 mt-2 sm:flex-1 flex-auto text-center sm:text-left'>
+                    <Button.Group outline={true} >
+                        <Button size="md" color="alternative" disabled={standardTableViewVisible} onClick={() => changeView("standard")}>
+                            <FaTable className="mr-3 h-4 w-4" />
+                            {' '}Standard
+                        </Button>
+                        <Button size="md" color="alternative" disabled={recentlyAddedTableViewVisible} onClick={() => changeView("recentlyAdded")}>
+                            <FaStar className="mr-3 h-4 w-4" />
+                            {' '}Newest
+                        </Button>
+                    </Button.Group>
+                </div>
+                <div className='text-white sm:flex-1 flex-auto text-center sm:text-right gap-1'>
+                    <Pagination
+                        currentPage={page}
+                        className="text-white text-sm"
+                        layout="navigation"
+                        onPageChange={(pageNumber) => changePage(pageNumber)}
+                        showIcons={true}
+                        totalPages={(Math.ceil(maxPages.current / 10)) || 1}
+                    />
+                    <p>Page <b>{page}</b> of <b>{(Math.ceil(maxPages.current / 10)) || <Spinner />}</b></p>
+                </div>
             </div>
             <Table striped={true} className="whitespace-nowrap md:whitespace-normal table-auto" >
                 <Table.Head>
@@ -176,6 +229,16 @@ export default function ToolSearchTable(props: any) {
                                                         </Link>
                                                     ) : null
                                                 }
+                                                {
+                                                    row.discord_link ? (
+                                                        <Link href={row.discord_link}>
+                                                            <Button size="xs" gradientMonochrome="purple" className="flex-1 md:flex-auto">
+                                                                <FaDiscord />&nbsp;
+                                                                <span className="hidden md:block">Discord</span>
+                                                            </Button>
+                                                        </Link>
+                                                    ) : null
+                                                }
                                             </div>
                                         </Table.Cell>
                                     </Table.Row>
@@ -200,6 +263,17 @@ export default function ToolSearchTable(props: any) {
                         </Table.Row>
                 </Table.Body>
             </Table>
+            <div className="items-center justify-center text-center text-white gap-1">
+                <Pagination
+                    currentPage={page}
+                    className="text-white text-sm"
+                    layout="navigation"
+                    onPageChange={(pageNumber) => changePage(pageNumber)}
+                    showIcons={true}
+                    totalPages={(Math.ceil(maxPages.current / 10)) || 1}
+                />
+                <p>Page <b>{page}</b> of <b>{(Math.ceil(maxPages.current / 10)) || <Spinner />}</b></p>
+            </div>
         </>
     )
 
