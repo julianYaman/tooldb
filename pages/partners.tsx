@@ -15,11 +15,11 @@ export default function PartnerPage({partnerData} : any) {
       <NextSeo
         title="🔎  tooldb - Partners"
         description="Donate to tooldb to keep the project alive"
-        canonical="https://tooldb.dev/donate"
+        canonical="https://tooldb.dev/partners"
         openGraph={{
-            url: `https://tooldb.dev/donate`,
-            title: `🔎  tooldb - Donate`,
-            description: `tooldb.dev is a free, open-source project. Donations help to cover the costs of hosting and maintaining the project.`,
+            url: `https://tooldb.dev/partners`,
+            title: `🔎  tooldb - Partners`,
+            description: `ToolDB relies on the contributions of its users. Partners provide ToolDB with their tool collection or with their own created app, framework or project.`,
             images: [
                 {
                     url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/logo-with-icon.png`,
