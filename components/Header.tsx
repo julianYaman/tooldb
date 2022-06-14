@@ -64,6 +64,11 @@ export default function Header() {
                 Donate
               </a>
             </Link>
+            <Link href="/partners">
+              <a className="md:mr-5 lg:mr-11 ml-0 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
+                Partners
+              </a>
+            </Link>
             <a target="_blank" rel="noreferrer" href="https://app.appsmith.com/app/submit-a-tool-to-tooldb/submittool-628dfd0f7901344ba8d28334" className="md:mr-5 cursor-pointer text-yellow-300 hover:text-white font-semibold tr04 ">
               Submit a tool
             </a>
@@ -75,14 +80,6 @@ export default function Header() {
             className="invisible md:visible mr-3 hover:text-white text-gray-300"
           >
             <SiDiscord size="1.5em"/>
-          </a>
-          <a
-            href="https://mstdn.social/@tooldbdev"
-            rel="noopener noreferrer me"
-            target="_blank"
-            className="invisible md:visible mr-3 hover:text-white text-gray-300"
-          >
-            <SiMastodon size="1.5em"/>
           </a>
           <a
             href="https://twitter.com/tooldbdev"

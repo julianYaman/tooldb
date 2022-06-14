@@ -19,7 +19,7 @@ export default function Home(props: any) {
             description: `Search the tool you need to build your new application. tooldb is a (soon) massive collection of frameworks and tools.`,
             images: [
                 {
-                    url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/favicon-160.png`,
+                    url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/logo-with-icon.png`,
                     alt: `ToolDB logo`,
                 },
             ],
@@ -32,12 +32,12 @@ export default function Home(props: any) {
         additionalLinkTags={[
             {
                 rel: 'icon',
-                href: '/favicon.png',
+                href: '/favicon-310.png',
             },
             {
                 rel: 'apple-touch-icon',
                 sizes: '76x76',
-                href: '/favicon.png',
+                href: '/favicon-310.png',
             }
         ]}
       />

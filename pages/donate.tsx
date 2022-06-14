@@ -13,16 +13,38 @@ export default function Donate() {
   return (
     <div className="text-black">
       <NextSeo
-        title="tooldb - Donate"
+        title="🔎  tooldb - Donate"
         description="Donate to tooldb to keep the project alive"
         canonical="https://tooldb.dev/donate"
         openGraph={{
-          url: "https://tooldb.dev/donate",
+            url: `https://tooldb.dev/donate`,
+            title: `🔎  tooldb - Donate`,
+            description: `tooldb.dev is a free, open-source project. Donations help to cover the costs of hosting and maintaining the project.`,
+            images: [
+                {
+                    url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/logo-with-icon.png`,
+                    alt: `ToolDB logo`,
+                },
+            ],
+            site_name: 'ToolDB',
         }}
+        twitter={{
+            site: '@tooldbdev',
+            cardType: 'summary',
+        }}
+        additionalLinkTags={[
+            {
+                rel: 'icon',
+                href: '/favicon-310.png',
+            },
+            {
+                rel: 'apple-touch-icon',
+                sizes: '76x76',
+                href: '/favicon-310.png',
+            }
+        ]}
       />
       <Head>
-        <title>tooldb - Donate</title>
-        <link rel="icon" href="/favicon.png" />
         <script defer data-domain="tooldb.dev" src="https://plausible.io/js/plausible.js"></script>
       </Head>
       <Script
@@ -39,7 +61,7 @@ export default function Donate() {
       <section className="text-white-900 body-font">
         <div className="container flex flex-wrap flex-col max-w-5xl mx-auto pt-48 pb-6 p-5">
           <div id="categoryData">
-            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5">
+            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5 text-center">
                   Donate
             </h1>
             <p className="text-lg font-4 pb-10 text-white leading-relaxed">

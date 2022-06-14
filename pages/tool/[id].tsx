@@ -45,7 +45,7 @@ export default function ToolPage(props: any) {
                 description: `${props.toolData?.tool_description || "Sorry, this tool doesn't exist"}`,
                 images: [
                     {
-                        url: `${props.toolData.logo || "https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/favicon-160.png"}`,
+                        url: `${props.toolData.logo || "https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/logo-with-icon.png"}`,
                         alt: `Tool logo of ${props.toolData.tool_name}`,
                     },
                 ],
@@ -58,12 +58,12 @@ export default function ToolPage(props: any) {
             additionalLinkTags={[
                 {
                     rel: 'icon',
-                    href: '/favicon.png',
+                    href: '/favicon-310.png',
                 },
                 {
                     rel: 'apple-touch-icon',
                     sizes: '76x76',
-                    href: '/favicon.png',
+                    href: '/favicon-310.png',
                 }
             ]}
         />

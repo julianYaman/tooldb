@@ -25,7 +25,7 @@ export default function ToolPage(props: any) {
                 description: `About ${props.categoryData?.category_name || "the category which doesn't exists"}: ${props.categoryData?.category_description || "nice try"}`,
                 images: [
                     {
-                        url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/favicon-160.png`,
+                        url: `https://qrukfpaygglwznencwsz.supabase.co/storage/v1/object/public/tool-images/tooldb/logo-with-icon.png`,
                         alt: `ToolDB logo`,
                     },
                 ],
@@ -38,12 +38,12 @@ export default function ToolPage(props: any) {
             additionalLinkTags={[
                 {
                     rel: 'icon',
-                    href: '/favicon.png',
+                    href: '/favicon-310.png',
                 },
                 {
                     rel: 'apple-touch-icon',
                     sizes: '76x76',
-                    href: '/favicon.png',
+                    href: '/favicon-310.png',
                 }
             ]}
         />

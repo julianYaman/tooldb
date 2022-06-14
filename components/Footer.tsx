@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function Footer() {
     return (
       <footer className="pb-4 text-gray-200">
-        <div className="max-w-5xl xl:max-w-5xl mx-auto divide-y divide-gray-900 px-4 sm:px-6 md:px-8">
-          <ul className="text-sm font-medium sm:pb-20 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-10">
+        <div className="max-w-5xl xl:max-w-5xl mx-auto divide-y divide-white px-4 sm:px-6 md:px-8">
+          <ul className="text-sm font-medium sm:pb-20 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-10 space-y pb-5">
             <li className="space-y-5 row-span-2">
               <h2 className="text-2xl tracking-wide text-white">Contribute</h2>
               <ul className="space-y-4 text-md">
@@ -22,7 +22,7 @@ export default function Footer() {
                     className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianYaman/tooldb"
                   >
-                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Contribute with code</a>
+                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">GitHub</a>
                   </Link>
                 </li>{" "}
                 <li>
@@ -57,14 +57,6 @@ export default function Footer() {
                 <li>
                   <Link
                     className="hover:text-white transition-colors duration-200 text-xl"
-                    href="https://mstdn.social/@tooldbdev"
-                  >
-                    <a target={"_blank"} rel="noreferrer" className="hover:text-white">Mastodon</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://mobile.twitter.com/tooldbdev"
                   >
                     <a target={"_blank"} rel="noreferrer" className="hover:text-white">Twitter</a>
@@ -86,14 +78,6 @@ export default function Footer() {
                 <li>
                   <Link
                     className="hover:text-white transition-colors duration-200 text-xl"
-                    href="/donate"
-                  >
-                    <a className="hover:text-white">Donate & Sponsors</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-white transition-colors duration-200 text-xl"
                     href="https://github.com/julianyaman/tooldb"
                   >
                     <a className="hover:text-white">Contributors</a>
@@ -102,16 +86,23 @@ export default function Footer() {
                 <li>
                   <Link
                     className="hover:text-white transition-colors duration-200 text-xl"
-                    href="https://github.com/julianyaman/tooldb"
+                    href="/donate"
                   >
-                    <a className="hover:text-white">Roadmap</a>
+                    <a className="hover:text-white">Donate & Sponsors</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/partners">
+                    <a className="md:mr-5 lg:mr-11 ml-0 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
+                      Partners
+                    </a>
                   </Link>
                 </li>
               </ul>
             </li>
 
           </ul>
-          <div className="flex flex-col-reverse justify-between pt-5 pb-4 border-t lg:flex-row bg-top border-black">
+          <div className="flex flex-col-reverse justify-between pt-5 pb-4 border-t lg:flex-row">
             <ul className="flex flex-col space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
               <li>
                 <Link
