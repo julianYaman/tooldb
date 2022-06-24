@@ -22,7 +22,7 @@ export default function ToolMain(props: any) {
           <EmbeddedSearchbar />
         </div>
         <div className="flex flex-wrap flex-col md:flex-row max-w-5xl mx-auto pb-12 p-5">
-          <div className="basis-2/3 divide-y divide-white-200 md:pr-5 mb-5">
+          <div className="basis-2/3 divide-y divide-white-200 md:pr-5 mb-2">
             <div id="toolData" className="flex gap-2">
               <div className="flex-none">
                 <Image src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
@@ -49,26 +49,6 @@ export default function ToolMain(props: any) {
                 </div>
               </div>
             </div>
-            {
-              props.githubInfo ? (
-                <div className="pt-2">
-                  <div className="flex bg-white text-center rounded-lg flex-wrap gap-2 p-2">
-                    <div className="md:flex-auto mx-auto">
-                      <p><FaStar className="inline align-text-top" color="orange" /> {props.githubInfo.stargazers_count} Stars</p>
-                    </div>
-                    <div className="md:flex-auto mx-auto">
-                      <p><a className="hover:pointer ease-in-out duration-300 hover:text-sky-500 text-sky-600 font-semibold" href={`https://github.com/${props.githubInfo.full_name}/issues`} target="_blank" rel="noreferrer"><FaExclamationCircle className="inline align-text-top" color="black" /> {props.githubInfo.open_issues_count} open issues</a></p>
-                    </div>
-                    <div className="md:flex-auto mx-auto">
-                      <p><CgGitFork className="inline align-text-top" color="black" /> {props.githubInfo.forks} forks</p>
-                    </div>
-                    <div className="md:flex-auto mx-auto">
-                      <p><RiFilePaper2Fill className="inline align-text-top" color="black" /> {props.githubInfo?.license?.name || "No license"}</p>
-                    </div>
-                  </div>
-                </div>
-              ) : null
-            }
             <div id="tool_images" className="my-2 py-3">
               <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool Table" size='xl' /></div>}>
                 <Carousel slideInterval={5000} slide={true}>
@@ -184,7 +164,28 @@ export default function ToolMain(props: any) {
               }
             </div>
           </div>
-          <div className="basis-1/3">
+          <div className="basis-1/3 space-y-2">
+          {
+              props.githubInfo ? (
+                <div className="bg-white rounded-lg p-5">
+                  <p className="text-lg font-bold pb-3 flex"><FaGithub className="my-1"/>&nbsp;GitHub Stats:</p>
+                  <div className="flex flex-wrap gap-2">
+                    <div className="md:flex-auto mx-auto">
+                      <p><FaStar className="inline align-text-top" color="orange" /> {props.githubInfo.stargazers_count} Stars</p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><a className="hover:pointer ease-in-out duration-300 hover:text-sky-500 text-sky-600 font-semibold" href={`https://github.com/${props.githubInfo.full_name}/issues`} target="_blank" rel="noreferrer"><FaExclamationCircle className="inline align-text-top" color="black" /> {props.githubInfo.open_issues_count} open issues</a></p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><CgGitFork className="inline align-text-top" color="black" /> {props.githubInfo.forks} forks</p>
+                    </div>
+                    <div className="md:flex-auto mx-auto">
+                      <p><RiFilePaper2Fill className="inline align-text-top" color="black" /> {props.githubInfo?.license?.name || "No license"}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : null
+            }
             <div className="bg-white p-5 rounded-lg">
               <p className="text-lg font-bold pb-3">About the tool:</p>
               <p className="font-4 pb-3">
