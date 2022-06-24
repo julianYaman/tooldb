@@ -61,35 +61,38 @@ export default function PartnerPage({partnerData} : any) {
       <section className="text-white-900 body-font">
         <div className="container flex flex-wrap flex-col max-w-5xl mx-auto pt-48 pb-6 p-5">
           <div id="categoryData">
-            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5 text-center">
+            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5">
                   Partners
             </h1>
-            <p className="text-lg font-4 pb-10 text-white leading-relaxed text-center">
+            <p className="text-lg pb-10 text-white leading-relaxed">
               ToolDB relies on the contributions of its users. Partners provide ToolDB with their tool collection or with their own created app, framework or project. <br />
               Partners are mentioned on this page and with a special badge on their provided tools, linking to their website.
             </p>
           </div>
           <div>
-            <h2 className="text-xl text-center font-bold pb-3 text-white">
+            <h2 className="text-xl font-bold pb-3 text-white">
               To become a partner of tooldb, please contact us via mail. Tell us, which tools you would like to add.
             </h2>
-            <a href="mailto:mail@yaman.pro" className="text-center mx-auto"><Button className="text-center gap-2 mx-auto" pill={true}><RiMailFill className="mr-2 h-5 w-5"/>&nbsp;<span className="gap-4">Send a mail</span></Button></a>
+            <a href="mailto:mail@yaman.pro" className=""><Button className="gap-2" pill={true}><RiMailFill className="mr-2 h-5 w-5"/>&nbsp;<span className="gap-4">Send a mail</span></Button></a>
           </div>
-          <div className="flex flex-wrap gap-3 justify-center my-10 space-y-3">
+          <div className="flex flex-wrap gap-3 my-10">
               {
                 partnerData.map((partner: any, index: number) => {
                   return (
                     <div className="max-w-sm" key={index}>
-                      <Card imgSrc={partner?.partner_card_image || ""} imgAlt={partner.partner}>
+                      <Card imgSrc={partner?.partner_card_image || ""} imgAlt={partner.partner} className="min-h-full">
                         <div className="justify-center mx-auto">
-                        <Link href={partner.partner_link}>
-                          <div className="hover:cursor-pointer">
-                            <Avatar
-                              img={partner.partner_logo}
-                              size="lg"
-                            />
-                          </div>
-                        </Link>
+                        {
+                          !partner?.partner_card_image ? (
+                            <Link href={partner.partner_link}>
+                              <div className="hover:cursor-pointer">
+                                <Avatar
+                                  img={partner.partner_logo}
+                                  size="lg"
+                                />
+                              </div>
+                            </Link> ) : null
+                          }
                         </div>
                         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                           {partner.partner}

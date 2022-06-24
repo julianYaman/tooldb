@@ -68,12 +68,14 @@ model tools {
 }
 
 model collaboration_partners {
-  id                  Int    @id @default(autoincrement())
-  created_at          DateTime? @default(now()) @db.Timestamptz(6)
-  partner             String?
-  partner_link        String?
-  partner_description String?
-  partner_badge_color String    @default("success") @db.VarChar
-  partner_logo        String?
-  tools               tools[]
+  id                           Int    @id @default(autoincrement())
+  created_at                   DateTime? @default(now()) @db.Timestamptz(6)
+  partner                      String?
+  partner_link                 String?
+  partner_description          String?
+  partner_badge_color          String    @default("success") @db.VarChar
+  partner_logo                 String?
+  partner_page_card_image_type Int?      @default(1) @db.SmallInt
+  partner_card_image           String?
+  tools                        tools[]
 }
