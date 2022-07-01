@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { withSentry } from "@sentry/nextjs";
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from './../../db'
 
@@ -37,7 +38,7 @@ type DefaultResponse = {
 }
 
 
-export default async function handler(
+const handler = async function (
   req: NextApiRequest,
   res: NextApiResponse<StandardViewResponse|CategoriesResponse|DefaultResponse>
 ) {
@@ -143,3 +144,5 @@ export default async function handler(
   })
 
 }
+
+export default withSentry(handler);

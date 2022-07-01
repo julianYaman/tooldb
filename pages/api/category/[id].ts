@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from './../../../db'
+import { withSentry } from "@sentry/nextjs";
 
 type CategoryResponse = {
     // TODO: add fields
@@ -9,7 +10,7 @@ type CategoryResponse = {
 type DefaultResponse = {}
 
 
-export default async function handler(
+const handler = async function(
     req: NextApiRequest,
     res: NextApiResponse<CategoryResponse|DefaultResponse>
 ) {
@@ -64,3 +65,5 @@ export default async function handler(
     return res.status(200).json({})
 
 }
+
+export default withSentry(handler);

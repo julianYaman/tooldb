@@ -1,9 +1,12 @@
 import { prisma } from './../../db'
+import { withSentry } from "@sentry/nextjs";
 
-export default async function handler(req: any, res: any) {
+const handler = async function(req: any, res: any) {
 
     const partners = await prisma.collaboration_partners.findMany()
 
     res.json(partners)
 
 }
+
+export default withSentry(handler);

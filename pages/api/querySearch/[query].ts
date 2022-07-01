@@ -1,6 +1,7 @@
 import { prisma } from './../../../db'
+import { withSentry } from "@sentry/nextjs";
 
-export default async function handler(req: any, res: any) {
+const handler = async function(req: any, res: any) {
 
     let { query } = req.query
 
@@ -44,3 +45,5 @@ export default async function handler(req: any, res: any) {
     res.json(tools)
 
 }
+
+export default withSentry(handler);

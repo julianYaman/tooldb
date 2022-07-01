@@ -4,7 +4,6 @@ import ToolMain from "../../components/ToolMain";
 import Footer from "../../components/Footer";
 import { NextSeo } from "next-seo";
 import { useRouter } from 'next/router'
-import { serialize } from 'next-mdx-remote/serialize'
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";

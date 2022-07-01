@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "3.14.0",
+    "@sentry/nextjs": "^7.4.1",
     "@supabase/supabase-js": "^1.35.3",
     "axios": "^0.27.2",
     "flowbite": "^1.4.5",
