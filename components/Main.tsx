@@ -35,7 +35,7 @@ export default function Main(props: any) {
 
     return (
       <section className="text-gray-600 body-font p-1 md:p-0">
-        <div className="max-w-5xl pt-52 pb-12 mx-auto">
+        <div className="max-w-6xl pt-52 pb-12 mx-auto">
           <h1 className="text-4xl sm:text-6xl text-center font-4 lh-6 font-extrabold text-white mb-6">
             Search the tool<br/> you need for your project
           </h1>
@@ -43,7 +43,7 @@ export default function Main(props: any) {
             You think of that one framework you wanted to use? You might find it here!
           </h2>
         </div>
-        <div className="container max-w-5xl flex flex-col gap-4 mx-auto">
+        <div className="container max-w-6xl flex flex-col gap-4 mx-auto">
           {
             isLoading ? (
               <div className="text-center">

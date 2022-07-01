@@ -59,9 +59,9 @@ export default function Donate() {
       <Script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charSet="UTF-8" async />
       <Header />
       <section className="text-white-900 body-font">
-        <div className="container flex flex-wrap flex-col max-w-5xl mx-auto pt-48 pb-6 p-5">
+        <div className="container flex flex-wrap flex-col max-w-6xl mx-auto pt-48 pb-48 p-5">
           <div id="categoryData">
-            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5 text-center">
+            <h1 className="text-6xl text-left font-4 lh-6 font-bold text-white mb-5">
                   Donate
             </h1>
             <p className="text-lg font-4 pb-10 text-white leading-relaxed">

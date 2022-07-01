@@ -9,8 +9,8 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 w-full clearNav z-50">
-      <div className="max-w-5xl mx-auto flex flex-wrap px-5 md:py-1 flex-col md:flex-row">
-        <div className="flex flex-row items-center justify-between p-3 md:p-1">
+      <div className="max-w-6xl mx-auto flex flex-wrap px-5 md:py-1 flex-col md:flex-row">
+        <div className="flex flex-row items-center justify-between">
           <Link
             href="/"
             className="flex text-3xl text-white font-medium mb-4 md:mb-0 cursor-pointer"
@@ -53,9 +53,6 @@ export default function Header() {
           }
         >
           <div className="md:mx-auto font-4 pt-1 lg:pl-14 pl-1 gap-6 md:gap-0 flex flex-wrap items-center md:text-base text-1xl md:justify-center justify-items-start">
-            <a href="https://github.com/julianyaman/tooldb" className="md:mr-5 lg:mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
-              About
-            </a>
             <a href="https://julianyaman.com" className="md:mr-5 lg:mr-11 pr-2 cursor-pointer text-gray-300 hover:text-white font-semibold tr04">
               Blog
             </a>

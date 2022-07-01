@@ -3,6 +3,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import { Suspense, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import ToolTableRow from './ToolTableRow';
 
 
 export default function EmbeddedSearchbar(props: any) {
@@ -65,88 +66,7 @@ export default function EmbeddedSearchbar(props: any) {
                             results.length > 0 ? (
                                 results.map((row: any, index: number) => {
                                     return (
-                                        <Table.Row key={index}>
-                                            <Table.Cell>
-                                                <Link href={`/tool/${encodeURIComponent(row.id)}`}>
-                                                    <a className='text-blue-600 hover:text-cyan-600'>
-                                                        <img src={`${row.logo}`} width="28px" height="28px" className='inline mr-2 rounded-lg' />
-                                                        {row.tool_name}
-                                                    </a>
-                                                </Link>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className='flex flex-wrap gap-2 items-center'>
-                                                {
-                                                    (row.submitted_by_type === "partner") ? (
-                                                            <Tooltip
-                                                                content={`About ${row.collaboration_partners.partner}: ${row.collaboration_partners.partner_description}`}
-                                                                placement="top"
-                                                            >
-                                                                <Badge
-                                                                color={"green"}
-                                                                size="xs"
-                                                                icon={FaStar}
-                                                                href={row.collaboration_partners.partner_link}
-                                                                >
-                                                                    <div className='flex justify-center items-center'>
-                                                                    {
-                                                                        row.collaboration_partners.partner_logo ? (
-                                                                                <Avatar
-                                                                                    img={row.collaboration_partners.partner_logo}
-                                                                                    size="xs"
-                                                                                    rounded={true}
-                                                                                />
-                                                                                
-                                                                        ) : null
-                                                                    }
-                                                                    <span className='ml-1'>{row.collaboration_partners.partner}</span>
-                                                                    </div>
-                                                                </Badge>
-                                                            </Tooltip>
-                                                        ) : null
-                                                    }
-                                                    {
-                                                        row.tool_categories.map((category: any, index: number) => {
-                                                            return (
-                                                                <Badge
-                                                                color="blue"
-                                                                size="xs"
-                                                                key={index}
-                                                                href={`/category/${category.categories.id}`}
-                                                                >
-                                                                    {category.categories.category_icon} {category.categories.category_name}
-                                                                </Badge>
-                                                            ) 
-                                                        })
-                                                    }
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <Link href={row.tool_link}>
-                                                    <a className='text-blue-600 hover:text-cyan-600'>Website</a>
-                                                </Link>
-                                                {
-                                                    row.github_repo ? (
-                                                        <>
-                                                            <span>; </span>
-                                                            <Link href={row.github_repo}>
-                                                                <a className='text-blue-600 hover:text-cyan-600'>Repository</a>
-                                                            </Link>
-                                                        </>
-                                                    ) : null
-                                                }
-                                                {
-                                                    row.twitter_link ? (
-                                                        <>
-                                                            <span>; </span>
-                                                            <Link href={row.twitter_link}>
-                                                                <a className='text-blue-600 hover:text-cyan-600'>Twitter</a>
-                                                            </Link>
-                                                        </>
-                                                    ) : null
-                                                }
-                                            </Table.Cell>
-                                        </Table.Row>
+                                        <ToolTableRow key={row.id} row={row} showSubmittedBy={false} showCategories={true} />
                                     )
                                 })
                             ) : (

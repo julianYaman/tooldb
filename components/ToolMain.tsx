@@ -18,14 +18,14 @@ export default function ToolMain(props: any) {
     // Show the tool page depending on the id of the tool
     return (
       <section className="text-white-900 body-font static">
-        <div className="container static flex flex-wrap flex-col max-w-5xl mx-auto pt-40 pb-6 p-5">
+        <div className="container static flex flex-wrap flex-col max-w-6xl mx-auto pt-40 pb-6 p-5">
           <EmbeddedSearchbar />
         </div>
-        <div className="flex flex-wrap flex-col md:flex-row max-w-5xl mx-auto pb-12 p-5">
+        <div className="flex flex-wrap flex-col md:flex-row max-w-6xl mx-auto pb-12 p-5">
           <div className="basis-2/3 divide-y divide-white-200 md:pr-5 mb-2">
             <div id="toolData" className="flex gap-2">
               <div className="flex-none">
-                <Image src={props.toolData.logo} className="flex-1 rounded-lg" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
+                <Image src={props.toolData.logo} className="flex-1 rounded-lg bg-white/20" width={"96px"} height={"96px"} alt={`Logo of ${props.toolData.tool_name}`} />
               </div>
               <div className="flex-1">
                 <h1 className="text-5xl text-left font-4 lh-6 font-bold text-white mb-5">
