@@ -1,7 +1,4 @@
-import { Avatar, Badge, Button, Table, Tooltip } from "flowbite-react";
-import Link from "next/link";
-import Image from "next/image";
-import { FaDiscord, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
+import { Table } from "flowbite-react";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
 import ToolTableRow from "./ToolTableRow";
 

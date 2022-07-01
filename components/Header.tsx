@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image"
 import Link from "next/link";
 import Logo from "../assets/default-monochrome-white.svg"
-import { SiDiscord, SiMastodon, SiTwitter } from "react-icons/si";
+import { SiDiscord, SiTwitter } from "react-icons/si";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);

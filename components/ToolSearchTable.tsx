@@ -1,8 +1,8 @@
-import { Avatar, Badge, BadgeColor, Button, Pagination, Progress, Spinner, Table, TextInput, Tooltip } from 'flowbite-react'
+import { Button, Pagination, Progress, Spinner, Table, TextInput } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react';
-import { FaDiscord, FaGithub, FaLink, FaStar, FaTable, FaTwitter } from 'react-icons/fa';
+import { FaStar, FaTable } from 'react-icons/fa';
 import useSWR from 'swr';
 import ToolTableRow from './ToolTableRow';
 

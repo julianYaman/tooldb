@@ -106,7 +106,7 @@ export async function getStaticProps(context: any) {
 
     const tool = await fetch(`${server}/api/tools/${id}`).then(res => res.json());
 
-    const toolDetailedDescription = tool?.tool_detailed_description ? await serialize(tool.tool_detailed_description) : ""
+    const toolDetailedDescription = tool?.tool_detailed_description ? tool.tool_detailed_description : ""
 
     let githubInfo = null
 

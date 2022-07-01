@@ -1,6 +1,5 @@
 import { Avatar, Badge, Button, Carousel, Modal, Spinner, Tooltip } from "flowbite-react";
 import Link from "next/link";
-import { MDXRemote } from 'next-mdx-remote'
 import { Suspense, useState } from "react";
 import { FaDiscord, FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
@@ -9,6 +8,9 @@ import EmbeddedSearchbar from "./EmbeddedSearchbar";
 import Image from "next/image";
 import ImageNotLoaded from "../assets/ImageNotLoaded.png";
 import Vibrant from "node-vibrant"
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 export default function ToolMain(props: any) {
 
@@ -145,9 +147,7 @@ export default function ToolMain(props: any) {
             <div id="tool_detailed_description" className="bg-white px-5 pb-5 rounded-lg">
               {
                 props.toolDetailedDescription !== "" ? (
-                  <p className="text-left text-black justify prose prose-headings:text-black prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:text-cyan-600 mt-3">
-                    <MDXRemote {...props.toolDetailedDescription}></MDXRemote>
-                  </p>
+                  <ReactMarkdown remarkPlugins={[gfm]} rehypePlugins={[rehypeRaw]} className="text-left text-black justify prose prose-headings:text-black prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:text-cyan-600 mt-3 mx-auto">{props.toolDetailedDescription}</ReactMarkdown>
                 ) : (
                   <>
                     <p className="text-left text-black leading-relaxed justify prose prose-headings:text-white prose-a:text-blue-600 hover:prose-a:text-cyan-600 mt-3">
@@ -255,7 +255,7 @@ export default function ToolMain(props: any) {
                   </p>
                 </div>
                 <Link href={props.toolData.tool_link} target={"_blank"} rel="noreferrer">
-                  <Button gradientMonochrome="green" className="min-w-full">
+                  <Button color="green" className="min-w-full">
                     <FaLink />&nbsp;
                     Website
                   </Button>

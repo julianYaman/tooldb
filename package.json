@@ -14,15 +14,15 @@
     "axios": "^0.27.2",
     "flowbite": "^1.4.5",
     "flowbite-react": "^0.0.24",
-    "micromark": "^3.0.10",
     "next": "12.1.6",
-    "next-mdx-remote": "^4.0.3",
     "next-seo": "^5.4.0",
     "node-vibrant": "^3.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-icons": "^4.3.1",
     "react-markdown": "^8.0.3",
+    "rehype-raw": "^6.1.1",
+    "remark-gfm": "^3.0.1",
     "swr": "^1.3.0"
   },
   "devDependencies": {
