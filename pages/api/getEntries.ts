@@ -70,7 +70,7 @@ const handler = async function (
         },
         collaboration_partners: true
       },
-      skip: ((parseInt(params?.page?.toString()) - 1) * 10) || 0,
+      skip: ((parseInt(params.page?.toString() || "1") - 1) * 10) || 0,
       take: 10,
       where: {
         isVerified: true
@@ -124,7 +124,7 @@ const handler = async function (
         },
         collaboration_partners: true
       },
-      skip: ((parseInt(params?.page?.toString()) - 1) * 10) || 0,
+      skip: ((parseInt(params.page?.toString() || "1") - 1) * 10) || 0,
       take: 10,
       orderBy: {
         created_at: "desc"

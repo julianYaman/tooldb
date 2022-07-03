@@ -15,7 +15,7 @@ const handler = async function(
     res: NextApiResponse<CategoryResponse|DefaultResponse>
 ) {
 
-    let id = req.query.id.toString()
+    let id = req.query.id?.toString() || ""
 
     id = encodeURIComponent(id)
 

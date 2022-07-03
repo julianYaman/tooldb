@@ -9,6 +9,7 @@
         "search",
         "tools",
         "partnerPage",
-        "footer"
+        "footer",
+        "auth"
     ]
 }

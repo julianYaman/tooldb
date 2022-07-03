@@ -54,7 +54,7 @@ model tools {
   tool_description          String?
   github_repo               String?
   twitter_link              String?
-  upvotes                   Int?                    @db.SmallInt
+  upvotes                   Int?                    @default(0) @db.SmallInt
   logo                      String?                 @default("NULL")
   submitted_by              String?
   tool_detailed_description String?
@@ -65,6 +65,7 @@ model tools {
   collaboration_partners    collaboration_partners? @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tool_categories           tool_categories[]
   tool_images               tool_images[]
+  votes                     votes[]
 }
 
 model collaboration_partners {
@@ -78,4 +79,12 @@ model collaboration_partners {
   partner_page_card_image_type Int?      @default(1) @db.SmallInt
   partner_card_image           String?
   tools                        tools[]
+}
+
+model votes {
+  id         Int    @id @default(autoincrement())
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  tool_id    Int
+  user_id    String    @db.Uuid
+  tools      tools     @relation(fields: [tool_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

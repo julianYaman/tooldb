@@ -161,7 +161,7 @@ export default function ToolSearchTable(props: any) {
             <Table striped={true} className="whitespace-nowrap md:whitespace-normal table-auto" >
                 <Table.Head>
                     <Table.HeadCell className='px-4 md:px-6'>
-                    Tool name
+                    Tool
                     </Table.HeadCell>
                     <Table.HeadCell className='px-4 md:px-6 w-96'>
                     Categories
