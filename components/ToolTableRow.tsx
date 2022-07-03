@@ -1,20 +1,90 @@
-import { Avatar, Badge, BadgeColor, Button, Table, Tooltip } from 'flowbite-react'
+import axios from 'axios';
+import { Avatar, Badge, BadgeColor, Button, Spinner, Table, Tooltip } from 'flowbite-react'
 import Link from 'next/link';
-import { FaArrowUp, FaDiscord, FaGithub, FaLink, FaStar, FaTwitter } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { FaArrowUp, FaDiscord, FaGithub, FaLink, FaRegTimesCircle, FaStar, FaTwitter } from 'react-icons/fa';
+import useSWR from 'swr';
+
+const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolTableRow(props: any) {
 
     const row = props.row;
     const showCategories = props.showCategories ? true : false;
     const showSubmittedBy = props.showSubmittedBy;
+    const userInfo = props.userInfo
+
+    const [toolVotes, setVotes] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isVoted, setIsVoted] = useState(false);
+
+    const { data: votes, error: voteCountError }: any = useSWR(`/api/getVotes/${row.id}`, fetcher)
+
+    useEffect(() => {
+        if(votes){
+            if(userInfo){
+                axios.get(`/api/tools/vote?id=${row.id}`).then(res => {
+                    if(res.data.voted){
+                        setIsVoted(true)
+                        setVotes(votes.votes)
+                        setIsLoading(false)
+                    }else{
+                        setIsVoted(false)
+                        setVotes(votes.votes)
+                        setIsLoading(false)
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    setVotes(votes.votes)
+                    setIsLoading(false)
+                })
+            }else{
+                setVotes(votes.votes)
+                setIsLoading(false)
+            }
+        }
+    }, [votes, userInfo, row.id])
+
+    async function handleVote (e:any) {
+        if(votes && userInfo && !isLoading && !voteCountError){
+            const oldVotes = toolVotes
+            if(isVoted){
+                try {
+                    setVotes(toolVotes - 1)
+                    setIsVoted(false)
+                    const removeVote = axios.post(`/api/tools/vote?id=${row.id}`, {
+                        userId: userInfo.id,
+                    })
+                    props.notifications.voteRemoved(removeVote);
+                } catch (error) {
+                    setVotes(oldVotes)
+                    props.notifications.voteError();
+                }
+            }else{
+                try {
+                    setVotes(toolVotes + 1)
+                    setIsVoted(true)
+                    const addVote = axios.post(`/api/tools/vote?id=${row.id}`, {
+                        userId: userInfo.id,
+                    })
+                    props.notifications.voteAdded(addVote);
+                } catch (error) {
+                    setVotes(oldVotes)
+                    props.notifications.voteError();
+                }
+            }
+        }else{
+            props.notifications.noLoginVote();
+        }
+    }
 
     return (
     <Table.Row>
         <Table.Cell className='flex flex-wrap px-4 md:px-6'>
             <div className='flex gap-2'>
-                <Button size="xs" outline={true} gradientDuoTone="pinkToOrange">
-                        <FaArrowUp className="mr-1 h-4 w-4" />
-                        {row.upvotes || 0}
+                <Button size="xs" outline={!isVoted} gradientDuoTone="pinkToOrange" onClick={handleVote} data-votes={votes ? toolVotes : 0}>
+                        <FaArrowUp className="mr-1 h-4 w-4 pointer-events-none" />
+                        <span className='pointer-events-none'>{voteCountError ? <FaRegTimesCircle /> : votes && !isLoading ? toolVotes : <Spinner size="sm" color='red' aria-label="Default status example" />}</span>
                 </Button>
                 <Link href={`/tool/${encodeURIComponent(row.id)}`}>
                     <a className='text-blue-600 hover:text-cyan-600'>

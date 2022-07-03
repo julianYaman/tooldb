@@ -1,14 +1,37 @@
-import {useState} from "react";
 import Image from "next/image"
 import Link from "next/link";
 import Logo from "../assets/default-monochrome-white.svg"
 import { SiDiscord, SiTwitter } from "react-icons/si";
-import { Button } from "flowbite-react";
+import { Avatar, Button, Dropdown, Spinner } from "flowbite-react";
 import LoginModal from "./LoginModal";
+import { useUser } from '@supabase/auth-helpers-react';
+import { supabase } from "../util/supabase";
+import { Suspense, useEffect, useState } from 'react';
 
-export default function Header() {
+export default function Header(props:any) {
+  
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { user, error } = useUser();
+  const [ userData, setUserData] : any = useState({username: "loading..."});
+
+  const supabaseCallUser = supabase.auth.user()
+
+  useEffect(() => {
+    setIsLoading(false);
+    async function loadData(user:any) {
+      const { data } : any = await supabase.from('profiles').select('*').eq("user_id", user?.id);
+      setUserData(data[0]);
+    }
+    if (user) {
+      loadData(user);
+    }
+    if(supabaseCallUser){
+      loadData(supabaseCallUser)
+    }
+  }, [user]);
 
   return (
     <header className="fixed top-0 w-full clearNav z-50">
@@ -103,12 +126,44 @@ export default function Header() {
           >
             <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/julianyaman/tooldb?style=social" />
           </a>
+          { isLoading ? (<Spinner aria-label="Loading" size='xl' color="yellow" />) : (
+          <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading" size='xl' color="red" /></div>}>
+          { supabaseCallUser ? (
+            <Dropdown size="sm" color="blue" outline={!!supabaseCallUser}  label={supabaseCallUser.user_metadata.full_name ? 
+            (<Avatar
+              img={supabaseCallUser.user_metadata.avatar_url}
+              rounded={true}
+              size="xs"
+            >
+            </Avatar>) : <span>{supabaseCallUser.user_metadata.full_name || userData.username || supabaseCallUser.email}</span> }>
+              <Dropdown.Header>
+                <span className="block text-sm">
+                  {supabaseCallUser.user_metadata.full_name || userData.username || supabaseCallUser.email }
+                </span>
+                <span className="block truncate text-xs font-medium">
+                  {supabaseCallUser.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>
+                <Link href="/profile/settings">
+                  <a className="block text-sm">Settings</a>
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => {supabase.auth.signOut(); window.location.href = "/";}}>
+                Sign out
+              </Dropdown.Item>
+            </Dropdown>
+            
+          ) : (
           <Button
             size="md"
             onClick={() => {setShowLoginModal(true)}}
           >
             Sign In
           </Button>
+          )}
+          </Suspense>
+          )}
         </div>
       </div>
     </header>

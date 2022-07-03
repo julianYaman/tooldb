@@ -3,12 +3,20 @@ import Link from 'next/link'
 import axios from 'axios'
 import { useState } from 'react';
 import ToolTableRow from './ToolTableRow';
+import toast from 'react-hot-toast';
+import { supabase } from '../util/supabase';
+import { useUser } from '@supabase/auth-helpers-react';
 
 
 export default function EmbeddedSearchbar(props: any) {
 
     const [results, setResults] = useState([])
     const [tableVisible, setTableVisibility] = useState(false)
+
+    const { user, error } = useUser();
+    const supabaseCallUser = supabase.auth.user()
+
+    const userInfo = user || supabaseCallUser || null
 
     const showSearchResults = async (searchTerm: string) => {
 
@@ -29,6 +37,21 @@ export default function EmbeddedSearchbar(props: any) {
             setResults([])
         }
     
+    }
+
+    const notifications = {
+        "noLoginVote": () => toast.error('You need to login first before voting!', {icon: "🙈", position: "bottom-center", duration: 3000}),
+        "voteAdded": (promise:Promise<{}>) => toast.promise(promise, {
+          loading: 'Adding vote...',
+          success: <b>Voted!</b>,
+          error: <b>Sorry, an error happened. Please try again later.</b>
+        }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteRemoved": (promise:Promise<{}>) => toast.promise(promise, {
+            loading: 'Remove vote...',
+            success: <b>Vote removed!</b>,
+            error: <b>Sorry, an error happened. Please try again later.</b>
+          }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteError": () => toast.error('An error occurred while trying to vote / unvote!', {position: "bottom-center", duration: 3000}),
     }
 
     return (
@@ -65,7 +88,7 @@ export default function EmbeddedSearchbar(props: any) {
                             results.length > 0 ? (
                                 results.map((row: any, index: number) => {
                                     return (
-                                        <ToolTableRow key={row.id} row={row} showSubmittedBy={false} showCategories={true} />
+                                        <ToolTableRow key={row.id} row={row} notifications={notifications} userInfo={userInfo} showSubmittedBy={false} showCategories={true} />
                                     )
                                 })
                             ) : (

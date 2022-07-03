@@ -9,6 +9,9 @@ import { Suspense, useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
 import Script from "next/script";
 import { server } from '../../config'
+import toast from "react-hot-toast";
+import { useUser } from "@supabase/auth-helpers-react";
+import { supabase } from "../../util/supabase";
 
 
 export default function ToolPage(props: any) {
@@ -17,6 +20,10 @@ export default function ToolPage(props: any) {
     const { id, isFallback } = router.query
 
     const [isSSR, setIsSSR] = useState(true);
+    const { user, error } = useUser();
+    const supabaseCallUser = supabase.auth.user()
+
+    const userInfo = user || supabaseCallUser || null
 
     useEffect(() => {
         setIsSSR(false);
@@ -30,6 +37,21 @@ export default function ToolPage(props: any) {
                 </div>
             </div>
         );
+    }
+
+    const notifications = {
+        "noLoginVote": () => toast.error('You need to login first before voting!', {icon: "🙈", position: "bottom-center", duration: 3000}),
+        "voteAdded": (promise:Promise<{}>) => toast.promise(promise, {
+          loading: 'Adding vote...',
+          success: <b>Voted!</b>,
+          error: <b>Sorry, an error happened. Please try again later.</b>
+        }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteRemoved": (promise:Promise<{}>) => toast.promise(promise, {
+            loading: 'Remove vote...',
+            success: <b>Vote removed!</b>,
+            error: <b>Sorry, an error happened. Please try again later.</b>
+          }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteError": () => toast.error('An error occurred while trying to vote / unvote!', {position: "bottom-center", duration: 3000}),
     }
 
     return (
@@ -84,7 +106,7 @@ export default function ToolPage(props: any) {
         {
             props.toolData && props?.toolData.isVerified ?
             ( !isSSR && <Suspense fallback={<div className="text-center"><Spinner aria-label="Loading Tool" size='xl' /></div>}>
-                <ToolMain toolData={props.toolData} toolDetailedDescription={props.toolDetailedDescription} githubInfo={props.githubInfo} /> 
+                <ToolMain toolData={props.toolData} userInfo={userInfo} notifications={notifications} toolDetailedDescription={props.toolDetailedDescription} githubInfo={props.githubInfo} /> 
             </Suspense>):
             (
             <section className="text-white-900 body-font">
