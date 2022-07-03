@@ -21,7 +21,12 @@ type ToolResponse = {
     tool_detailed_description: string,
     tool_images: {
         image_link: string | null;
-    }[];
+    }[],
+    votes: {
+        id: number;
+        user_id: string;
+        tool_id: number;
+    };
 }
 
 type DefaultResponse = {}
@@ -32,7 +37,7 @@ export default async function handler(
     res: NextApiResponse<ToolResponse|DefaultResponse>
 ) {
 
-    let id = req.query.id.toString()
+    let id = req.query.id?.toString() || ""
 
     id = encodeURIComponent(id)
 
@@ -69,7 +74,8 @@ export default async function handler(
                         image_link: true
                     }
                 },
-                collaboration_partners: true
+                collaboration_partners: true,
+                votes: true
             },
             where: {
                 id: parseInt(id),
