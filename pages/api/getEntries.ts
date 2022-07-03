@@ -46,35 +46,32 @@ const handler = async function (
 
   if(params.get === "standard"){
     const tools = await prisma.tools.findMany({
-      select: {
-        id: true,
-        tool_name: true,
-        submitted_by: true,
-        submitted_by_type: true,
-        discord_link: true,
-        upvotes: true,
-        tool_link: true,
-        logo: true,
-        github_repo: true,
-        twitter_link: true,
+      include: {
         tool_categories: {
-          select: {
-            categories: {
-              select: {
-                id: true,
-                category_name: true,
-                category_icon: true
-              }
-            }
+          include: {
+            categories: true
           }
         },
-        collaboration_partners: true
+        collaboration_partners: true,
+        tool_images: true,
+        votes: true,
+        _count: {
+          select: {
+            votes: true
+          }
+        }
       },
       skip: ((parseInt(params.page?.toString() || "1") - 1) * 10) || 0,
       take: 10,
       where: {
         isVerified: true
+      },
+      orderBy: {
+        votes: {
+          _count: "desc"
+        }
       }
+      
     });
 
     const count = await prisma.tools.count();
