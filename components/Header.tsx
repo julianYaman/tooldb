@@ -1,14 +1,22 @@
-import React from "react";
+import {useState} from "react";
 import Image from "next/image"
 import Link from "next/link";
 import Logo from "../assets/default-monochrome-white.svg"
 import { SiDiscord, SiTwitter } from "react-icons/si";
+import { Button } from "flowbite-react";
+import LoginModal from "./LoginModal";
 
 export default function Header() {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <header className="fixed top-0 w-full clearNav z-50">
+      {
+        showLoginModal ? (
+          <LoginModal showHandler={setShowLoginModal} onClose={() => setShowLoginModal(false)} />
+        ) : null
+      }
       <div className="max-w-6xl mx-auto flex flex-wrap px-5 md:py-1 flex-col md:flex-row">
         <div className="flex flex-row items-center justify-between">
           <Link
@@ -91,10 +99,16 @@ export default function Header() {
             href="https://github.com/julianyaman/tooldb"
             rel="noopener noreferrer"
             target="_blank"
-            className="invisible md:visible"
+            className="invisible md:visible mr-3"
           >
             <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/julianyaman/tooldb?style=social" />
           </a>
+          <Button
+            size="md"
+            onClick={() => {setShowLoginModal(true)}}
+          >
+            Sign In
+          </Button>
         </div>
       </div>
     </header>

@@ -1,6 +1,6 @@
 import { Avatar, Badge, BadgeColor, Button, Table, Tooltip } from 'flowbite-react'
 import Link from 'next/link';
-import { FaDiscord, FaGithub, FaLink, FaStar, FaTwitter } from 'react-icons/fa';
+import { FaArrowUp, FaDiscord, FaGithub, FaLink, FaStar, FaTwitter } from 'react-icons/fa';
 
 export default function ToolTableRow(props: any) {
 
@@ -10,13 +10,19 @@ export default function ToolTableRow(props: any) {
 
     return (
     <Table.Row>
-        <Table.Cell className='px-4 md:px-6'>
-            <Link href={`/tool/${encodeURIComponent(row.id)}`}>
-                <a className='text-blue-600 hover:text-cyan-600'>
-                    <img src={`${row.logo}`} width="28px" height="28px" className='inline mr-2 rounded-lg' />
-                    {row.tool_name}
-                </a>
-            </Link>
+        <Table.Cell className='flex flex-wrap px-4 md:px-6'>
+            <div className='flex gap-2'>
+                <Button size="xs" outline={true} gradientDuoTone="pinkToOrange">
+                        <FaArrowUp className="mr-1 h-4 w-4" />
+                        {row.upvotes || 0}
+                </Button>
+                <Link href={`/tool/${encodeURIComponent(row.id)}`}>
+                    <a className='text-blue-600 hover:text-cyan-600'>
+                        <img src={`${row.logo}`} width="28px" height="28px" className='inline mr-2 rounded-lg' />
+                        {row.tool_name}
+                    </a>
+                </Link>
+            </div>
         </Table.Cell>
         { showCategories ? (
             <Table.Cell className='px-4 md:px-6'>
@@ -70,6 +76,7 @@ export default function ToolTableRow(props: any) {
         }   
         <Table.Cell className='hidden sm:table-cell px-4 md:px-6'>
             <div className="flex flex-wrap gap-2">
+                    
                     <Link href={row.tool_link}>
                         <Button size="xs" color="green" className="flex-1 md:flex-auto">
                             <FaLink />&nbsp;
