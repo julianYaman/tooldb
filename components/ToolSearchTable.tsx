@@ -1,16 +1,24 @@
-import { Button, Pagination, Progress, Spinner, Table, TextInput } from 'flowbite-react'
+import { Button, Pagination, Progress, Spinner, Table, TextInput, Toast } from 'flowbite-react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react';
 import { FaStar, FaTable } from 'react-icons/fa';
 import useSWR from 'swr';
 import ToolTableRow from './ToolTableRow';
+import { useUser } from '@supabase/auth-helpers-react';
+import { supabase } from "../util/supabase";
+import toast from 'react-hot-toast';
 
 const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolSearchTable(props: any) {
 
     let maxPages = useRef(0);
+
+    const { user, error } = useUser();
+    const supabaseCallUser = supabase.auth.user()
+
+    const userInfo = user || supabaseCallUser || null
 
     const [tablePreviewData, setTablePreviewData] = useState([])
     const [standardTableViewVisible, setStandardTableViewVisible] = useState(true)
@@ -117,6 +125,21 @@ export default function ToolSearchTable(props: any) {
 
     }
 
+    const notifications = {
+        "noLoginVote": () => toast.error('You need to login first before voting!', {icon: "🙈", position: "bottom-center", duration: 3000}),
+        "voteAdded": (promise:Promise<{}>) => toast.promise(promise, {
+          loading: 'Adding vote...',
+          success: <b>Voted!</b>,
+          error: <b>Sorry, an error happened. Please try again later.</b>
+        }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteRemoved": (promise:Promise<{}>) => toast.promise(promise, {
+            loading: 'Remove vote...',
+            success: <b>Vote removed!</b>,
+            error: <b>Sorry, an error happened. Please try again later.</b>
+          }, {position: "bottom-center", duration: 2000}).then((r) => r).catch((error) => console.error(error)),
+        "voteError": () => toast.error('An error occurred while trying to vote / unvote!', {position: "bottom-center", duration: 3000}),
+    }
+
     return (
         <>
             <h3 className='text-center text-md text-white font-bold'>Search through {maxPages.current || <Spinner />} tools</h3>
@@ -175,7 +198,7 @@ export default function ToolSearchTable(props: any) {
                         tablePreviewData ? (
                             tablePreviewData.map((row: any, index: number) => {
                                 return (
-                                    <ToolTableRow key={row.id} row={row} showSubmittedBy={false} showCategories={true} />
+                                    <ToolTableRow key={row.id} row={row} notifications={notifications} userInfo={userInfo} showSubmittedBy={false} showCategories={true} />
                                 )
                             })
                         ) : (

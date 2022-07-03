@@ -4,6 +4,7 @@ import { Card, Progress, Spinner } from 'flowbite-react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
@@ -35,6 +36,7 @@ export default function Main(props: any) {
 
     return (
       <section className="text-gray-600 body-font p-1 md:p-0">
+        <Toaster />
         <div className="max-w-6xl pt-52 pb-12 mx-auto">
           <h1 className="text-4xl sm:text-6xl text-center font-4 lh-6 font-extrabold text-white mb-6">
             Search the tool<br/> you need for your project

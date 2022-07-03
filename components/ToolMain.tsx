@@ -1,7 +1,7 @@
 import { Avatar, Badge, Button, Carousel, Modal, Spinner, Tooltip } from "flowbite-react";
 import Link from "next/link";
-import { Suspense, useState } from "react";
-import { FaDiscord, FaExclamationCircle, FaGithub, FaLink, FaStar, FaTwitter } from "react-icons/fa";
+import { Suspense, useEffect, useState } from "react";
+import { FaArrowUp, FaDiscord, FaExclamationCircle, FaGithub, FaLink, FaRegTimesCircle, FaStar, FaTwitter } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { CgGitFork } from "react-icons/cg";
 import EmbeddedSearchbar from "./EmbeddedSearchbar";
@@ -11,15 +11,85 @@ import Vibrant from "node-vibrant"
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
+import { Toaster } from "react-hot-toast";
+import axios from "axios";
+import useSWR from 'swr';
+
+const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolMain(props: any) {
 
     const [vibrantColors, setVibrantColors] = useState<string[]>([]);
     const [modals, setModal] = useState<boolean[]>([]);
+    const [toolVotes, setVotes] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isVoted, setIsVoted] = useState(false);
+    const userInfo = props.userInfo
+
+    const { data: votes, error: voteCountError }: any = useSWR(`/api/getVotes/${props.toolData.id}`, fetcher)
+
+    useEffect(() => {
+      if(votes){
+          if(userInfo){
+              axios.get(`/api/tools/vote?id=${props.toolData.id}`).then(res => {
+                  if(res.data.voted){
+                      setIsVoted(true)
+                      setVotes(votes.votes)
+                      setIsLoading(false)
+                  }else{
+                      setIsVoted(false)
+                      setVotes(votes.votes)
+                      setIsLoading(false)
+                  }
+              }).catch(err => {
+                  console.log(err)
+                  setVotes(votes.votes)
+                  setIsLoading(false)
+              })
+          }else{
+              setVotes(votes.votes)
+              setIsLoading(false)
+          }
+      }
+  }, [votes, userInfo, props.toolData.id])
+
+    async function handleVote (e:any) {
+      if(votes && userInfo && !isLoading && !voteCountError){
+          const oldVotes = toolVotes
+          if(isVoted){
+              try {
+                  setVotes(toolVotes - 1)
+                  setIsVoted(false)
+                  const removeVote = axios.post(`/api/tools/vote?id=${props.toolData.id}`, {
+                      userId: userInfo.id,
+                  })
+                  props.notifications.voteRemoved(removeVote);
+              } catch (error) {
+                  setVotes(oldVotes)
+                  props.notifications.voteError();
+              }
+          }else{
+              try {
+                  setVotes(toolVotes + 1)
+                  setIsVoted(true)
+                  const addVote = axios.post(`/api/tools/vote?id=${props.toolData.id}`, {
+                      userId: userInfo.id,
+                  })
+                  props.notifications.voteAdded(addVote);
+              } catch (error) {
+                  setVotes(oldVotes)
+                  props.notifications.voteError();
+              }
+          }
+      }else{
+          props.notifications.noLoginVote();
+      }
+  }
 
     // Show the tool page depending on the id of the tool
     return (
       <section className="text-white-900 body-font static">
+        <Toaster />
         <div className="container static flex flex-wrap flex-col max-w-6xl mx-auto pt-40 pb-6 p-5">
           <EmbeddedSearchbar />
         </div>
@@ -32,6 +102,10 @@ export default function ToolMain(props: any) {
               <div className="flex-1">
                 <h1 className="text-5xl text-left font-4 lh-6 font-bold text-white mb-5">
                   {props.toolData.tool_name}
+                  <Button size="xl" className="float-right" outline={!isVoted} gradientDuoTone="pinkToOrange" onClick={handleVote} data-votes={votes ? toolVotes : 0}>
+                        <FaArrowUp className="mr-1 h-4 w-4 pointer-events-none" />
+                        <span className='pointer-events-none'>{voteCountError ? <FaRegTimesCircle /> : votes && !isLoading ? toolVotes : <Spinner size="sm" color='red' aria-label="Default status example" />}</span>
+                  </Button>
                 </h1>
                 <div className="flex flex-wrap gap-2 pb-5">
                   {
