@@ -8,29 +8,23 @@ const handler = async function(req: any, res: any) {
     query = decodeURIComponent(query)
 
     const tools = await prisma.tools.findMany({
-        select: {
-            id: true,
-            tool_name: true,
-            submitted_by: true,
-            submitted_by_type: true,
-            tool_link: true,
-            discord_link: true,
-            github_repo: true,
-            twitter_link: true,
-            logo: true,
+        include: {
             tool_categories: {
-                select: {
-                    categories: {
-                        select: {
-                            category_name: true,
-                            category_icon: true,
-                            id: true
-                        }
-                    }
+                include: {
+                    categories: true
                 }
             },
             collaboration_partners: true,
+            tool_images: true,
+            votes: true,
+            _count: {
+                select: {
+                    votes: true
+                }
+            }
         },
+        skip: ((parseInt(req.query.page?.toString() || "1") - 1) * 10) || 0,
+        take: 10,
         where: {
             tool_name: {
                 contains: query,
@@ -38,8 +32,11 @@ const handler = async function(req: any, res: any) {
             },
             isVerified: true
         },
-        take: 10,
-        skip: ((parseInt(req.query.page.toString()) - 1) * 10) || 0,
+        orderBy: {
+            votes: {
+                _count: "desc"
+            }
+        }
     })
 
     res.json(tools)

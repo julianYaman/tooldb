@@ -2,7 +2,7 @@ import { Button, Pagination, Progress, Spinner, Table, TextInput, Toast } from '
 import Link from 'next/link'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react';
-import { FaStar, FaTable } from 'react-icons/fa';
+import { FaArrowUp, FaStar, FaTable } from 'react-icons/fa';
 import useSWR from 'swr';
 import ToolTableRow from './ToolTableRow';
 import { useUser } from '@supabase/auth-helpers-react';
@@ -160,11 +160,11 @@ export default function ToolSearchTable(props: any) {
                 <div className='xs:mt-0 mt-2 sm:flex-1 flex-auto text-center sm:text-left'>
                     <Button.Group outline={true} >
                         <Button size="md" color="alternative" disabled={standardTableViewVisible} onClick={() => changeView("standard")}>
-                            <FaTable className="mr-3 h-4 w-4" />
-                            {' '}Standard
+                            <FaArrowUp className="mr-1 h-4 w-4" />
+                            {' '}Most Votes
                         </Button>
                         <Button size="md" color="alternative" disabled={recentlyAddedTableViewVisible} onClick={() => changeView("recentlyAdded")}>
-                            <FaStar className="mr-3 h-4 w-4" />
+                            <FaStar className="mr-1 h-4 w-4" />
                             {' '}Newest
                         </Button>
                     </Button.Group>
