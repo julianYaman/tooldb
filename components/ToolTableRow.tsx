@@ -3,9 +3,6 @@ import { Avatar, Badge, BadgeColor, Button, Spinner, Table, Tooltip } from 'flow
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaArrowUp, FaDiscord, FaGithub, FaLink, FaRegTimesCircle, FaStar, FaTwitter } from 'react-icons/fa';
-import useSWR from 'swr';
-
-const fetcher = (url:any) => axios.get(url).then(res => res.data)
 
 export default function ToolTableRow(props: any) {
 
@@ -14,39 +11,31 @@ export default function ToolTableRow(props: any) {
     const showSubmittedBy = props.showSubmittedBy;
     const userInfo = props.userInfo
 
-    const [toolVotes, setVotes] = useState(0)
+    const [toolVotes, setVotes] = useState(row?._count.votes)
     const [isLoading, setIsLoading] = useState(true)
     const [isVoted, setIsVoted] = useState(false);
 
-    const { data: votes, error: voteCountError }: any = useSWR(`/api/getVotes/${row.id}`, fetcher)
-
     useEffect(() => {
-        if(votes){
-            if(userInfo){
-                axios.get(`/api/tools/vote?id=${row.id}`).then(res => {
-                    if(res.data.voted){
-                        setIsVoted(true)
-                        setVotes(votes.votes)
-                        setIsLoading(false)
-                    }else{
-                        setIsVoted(false)
-                        setVotes(votes.votes)
-                        setIsLoading(false)
-                    }
-                }).catch(err => {
-                    console.log(err)
-                    setVotes(votes.votes)
+        if(userInfo){
+            axios.get(`/api/tools/vote?id=${row.id}`).then(res => {
+                if(res.data.voted){
+                    setIsVoted(true)
                     setIsLoading(false)
-                })
-            }else{
-                setVotes(votes.votes)
+                }else{
+                    setIsVoted(false)
+                    setIsLoading(false)
+                }
+            }).catch(err => {
+                console.log(err)
                 setIsLoading(false)
-            }
+            })
+        }else{
+            setIsLoading(false)
         }
-    }, [votes, userInfo, row.id])
+    }, [userInfo, row.id])
 
     async function handleVote (e:any) {
-        if(votes && userInfo && !isLoading && !voteCountError){
+        if(userInfo && !isLoading){
             const oldVotes = toolVotes
             if(isVoted){
                 try {
@@ -82,9 +71,9 @@ export default function ToolTableRow(props: any) {
     <Table.Row>
         <Table.Cell className='flex flex-wrap px-4 md:px-6'>
             <div className='flex gap-2'>
-                <Button size="xs" outline={!isVoted} gradientDuoTone="pinkToOrange" onClick={handleVote} data-votes={votes ? toolVotes : 0}>
+                <Button size="xs" outline={!isVoted} gradientDuoTone="pinkToOrange" onClick={handleVote} data-votes={toolVotes || 0}>
                         <FaArrowUp className="mr-1 h-4 w-4 pointer-events-none" />
-                        <span className='pointer-events-none'>{voteCountError ? <FaRegTimesCircle /> : votes && !isLoading ? toolVotes : <Spinner size="sm" color='red' aria-label="Default status example" />}</span>
+                        <span className='pointer-events-none'>{!(typeof row?._count.votes === "number") ? <FaRegTimesCircle /> : !isLoading ? toolVotes : <Spinner size="sm" color='red' aria-label="Default status example" />}</span>
                 </Button>
                 <Link href={`/tool/${encodeURIComponent(row.id)}`}>
                     <a className='text-blue-600 hover:text-cyan-600'>
