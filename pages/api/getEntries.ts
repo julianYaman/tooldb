@@ -54,7 +54,6 @@ const handler = async function (
         },
         collaboration_partners: true,
         tool_images: true,
-        votes: true,
         _count: {
           select: {
             votes: true
@@ -63,6 +62,7 @@ const handler = async function (
       },
       skip: ((parseInt(params.page?.toString() || "1") - 1) * 10) || 0,
       take: 10,
+      distinct: ["id"],
       where: {
         isVerified: true
       },
