@@ -75,7 +75,11 @@ export default async function handler(
                     }
                 },
                 collaboration_partners: true,
-                votes: true
+                _count: {
+                    select: {
+                        votes: true
+                    }
+                }
             },
             where: {
                 id: parseInt(id),

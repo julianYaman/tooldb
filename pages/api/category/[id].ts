@@ -40,7 +40,12 @@ const handler = async function(
                         twitter_link: true,
                         upvotes: true,
                         isVerified: true,
-                        collaboration_partners: true
+                        collaboration_partners: true,
+                        _count: {
+                            select: {
+                                votes: true
+                            }
+                        }
                     }
                 },
             },
